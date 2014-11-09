@@ -4,6 +4,9 @@
 #
 # FunnyQ
 
+def source_paths
+    [File.expand_path(File.dirname(__FILE__))]
+end
 
 ################################################################################
 # 加入安裝需要的 GEMS
@@ -24,6 +27,12 @@ gem_group :development, :test do
 
   end
 
+  # 自動更新瀏覽器
+  gem 'guard-livereload'
+
+  # 在 model 檔案中註釋 schema
+  gem 'annotate'
+
   # 增強錯誤畫面
   gem "better_errors"
 
@@ -42,7 +51,7 @@ gem_group :development, :test do
   # 取代 fixture 來製作假資料
   gem "factory_girl_rails"
   gem "factor"
-  gem "database-cleaner"
+  gem "database_cleaner"
 
   # Linter
   gem "rubocop"
@@ -51,7 +60,7 @@ end
 
 # 懶人後台
 if yes?("是否使用懶人後台 activeadmin？")
-  gem "activeadmin", github: "activeadmin"
+  gem 'activeadmin', github: 'activeadmin'
 end
 
 # 使用者系統
@@ -72,3 +81,42 @@ if yes?("是否進行開發 API？")
   gem "rack-cors", require: "rack/cors"
 
 end
+
+# 前端相關
+gem 'compass-rails'
+gem 'bower-rails'
+gem 'modernizr-rails'
+
+# 檔案上傳與影像處理
+gem 'carrierwave'
+gem 'mini_magick'
+
+
+################################################################################
+# 設定動作
+################################################################################
+
+# 將 bower 管理的前端套件路徑加入 assets pipeline
+environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components")'
+environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components","bootstrap-sass-official","assets","fonts")'
+environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components","fontawesome","fonts")'
+
+copy_file 'Bowerfile'
+
+rake "bower:install"
+
+# 使用建議的 ignore 設定
+remove_file '.gitignore'
+copy_file '.gitignore'
+
+# 建立資料庫
+rake 'db:create'
+rake 'db:migrate'
+
+################################################################################
+# git 初始化
+################################################################################
+
+git :init
+git add: "."
+git commit: "-a -m 'Initial commit'"
