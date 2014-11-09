@@ -1,0 +1,58 @@
+// *************************************
+//
+//   helper classes
+//
+//
+// *************************************
+
+.blur
+  +filter(blur($blur))
+
+.trans-1s
+  +transition(all, 1s)
+.trans-05s
+  +transition(all, 0.5s)
+
+.box-shadow
+  +box-shadow(rgba(black, 0.6) 0 0 15px)
+
+.hidden
+  display: none
+
+.opacity0
+  opacity: 0
+
+.hidden-mobile
+  display: none
+  +breakpoint($b-mobile)
+    display: block
+
+.only-mobile
+  display: block
+  +breakpoint($b-mobile)
+    display: none
+
+.only-desktop-up
+  display: none
+  +breakpoint($b-pad)
+    display: block
+
+.only-desktop
+  display: none
+  +breakpoint($b-pad)
+    display: block
+  +breakpoint($b-desktop)
+    display: none
+
+.only-large
+  display: none
+  +breakpoint($b-desktop)
+    display: block
+
+.only-pad
+  display: none
+  +breakpoint($b-mobile)
+    display: block
+  +breakpoint($b-pad)
+    display: none
+

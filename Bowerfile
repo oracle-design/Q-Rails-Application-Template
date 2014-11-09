@@ -1,5 +1,4 @@
 # basic asset
-asset 'jquery'
 asset 'susy'
 asset 'fontawesome'
 asset 'breakpoint-sass'
