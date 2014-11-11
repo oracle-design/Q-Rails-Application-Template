@@ -5,13 +5,13 @@
 # FunnyQ
 
 # 支援此 application template 相對位置的檔案操作
+#===============================================================================
 def source_paths
     [File.expand_path(File.dirname(__FILE__))]
 end
 
-################################################################################
 # 加入安裝需要的 GEMS
-################################################################################
+#===============================================================================
 
 # 移除舊版 sass-rails，改用 5.0.0.beta1，因為需要使用 susy2 and compass
 gsub_file 'Gemfile', /.+'sass-rails'.+\n/, ''
@@ -19,24 +19,19 @@ gsub_file 'Gemfile', /.+'sass-rails'.+\n/, ''
 # for test and development ENV
 gem_group :development, :test do
 
-  if yes?("要不要來寫個測試？")
-
-    # RSpec 相關
-    gem "shoulda-matchers"
-    gem "spring-commands-rspec"
-
-    # Capybara 整合測試
-    gem "capybara"
-    gem "capybara-screenshot"
-
-  end
-
-  # 使用 RSpec
+  # RSpec 相關
   gem "rspec-rails"
+  gem "shoulda-matchers"
+  gem "spring-commands-rspec"
+
+  # Capybara 整合測試
+  gem "capybara"
+  gem "capybara-screenshot"
 
   # 使用 Guard 將開發流程的雜事自動化
   gem 'guard-livereload'
   gem 'guard-rspec', require: false
+  gem 'guard-pow'
 
   # 在 model 檔案中註釋 schema
   gem 'annotate'
@@ -58,7 +53,6 @@ gem_group :development, :test do
 
   # 取代 fixture 來製作假資料
   gem "factory_girl_rails"
-  gem "factor"
   gem "database_cleaner"
 
   # Linter
@@ -66,16 +60,14 @@ gem_group :development, :test do
 
 end
 
-# 懶人後台
-if yes?("是否使用懶人後台 activeadmin？")
-  gem 'activeadmin', github: 'activeadmin'
-end
+
+gem 'activeadmin', github: 'activeadmin'
 
 # 使用者系統
 gem "devise"
 
 # API 開發工具組
-if yes?("是否進行開發 API？")
+if yes?("是否進行開發 API？ yes/no")
 
   # 資料序列化工具（JSON）
   gem "active_model_serializers"
@@ -102,9 +94,9 @@ gem 'carrierwave'
 gem 'mini_magick'
 
 
-################################################################################
+
 # 設定動作
-################################################################################
+#===============================================================================
 
 run "bundle"
 
@@ -117,6 +109,11 @@ copy_file 'Bowerfile'
 
 rake "bower:install"
 
+
+run "guard init"
+
+run "rm -rf test"
+
 # 使用建議的 ignore 設定
 remove_file '.gitignore'
 copy_file '.gitignore'
@@ -125,9 +122,20 @@ copy_file '.gitignore'
 rake 'db:create'
 rake 'db:migrate'
 
-################################################################################
+generate(:controller, "frontend")
+route "resources :frontend, :only => [:index]"
+
+file 'app/controllers/frontend_controller.rb', <<-CODE
+  class FrontendController < ApplicationController
+
+    def index
+    end
+
+  end
+CODE
+
 # 前端基本環境建立
-################################################################################
+#===============================================================================
 
 # Javascript
 inside 'app/assets/javascripts' do
@@ -160,13 +168,13 @@ inside 'app/views' do
   copy_file 'partials/_header.html.erb'
   copy_file 'partials/_footer.html.erb'
   copy_file 'partials/_GA.html.erb'
+  copy_file 'frontend/index.html.erb'
 end
 
 
-################################################################################
-# git 初始化
-################################################################################
 
+# git 初始化
+#===============================================================================
 git :init
 git add: "."
 git commit: "-m 'Initial commit'"
