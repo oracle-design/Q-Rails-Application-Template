@@ -83,9 +83,10 @@ if yes?("是否進行開發 API？ yes/no")
 end
 
 # 前端相關
-gem 'sass-rails', '~> 5.0.0.beta1'
+gem 'sprockets-rails', '3.0.0.beta1'
+gem 'sass-rails', '5.0.0.beta1'
+gem 'compass-rails', '2.0.0'
 
-gem 'compass-rails'
 gem 'bower-rails'
 gem 'modernizr-rails'
 
@@ -93,7 +94,11 @@ gem 'modernizr-rails'
 gem 'carrierwave'
 gem 'mini_magick'
 
-
+if yes?("是否使用 Facebook oauth登入")
+  gem "omniauth"
+  gem "omniauth-facebook"
+  gem "auto-facebook", :github => "FunnyQ/auto-facebook"
+end
 
 # 設定動作
 #===============================================================================
