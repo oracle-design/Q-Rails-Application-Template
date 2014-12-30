@@ -60,9 +60,6 @@ gem_group :development, :test do
 
 end
 
-
-gem 'activeadmin', github: 'activeadmin'
-
 # 使用者系統
 gem "devise"
 
