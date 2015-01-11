@@ -81,8 +81,8 @@ end
 
 # 前端相關
 gem 'sprockets-rails', '3.0.0.beta1'
-gem 'sass-rails', '5.0.0.beta1'
-gem 'compass-rails', '2.0.0'
+gem 'sass-rails', '5.0.1'
+gem 'compass-rails', '2.0.1'
 
 gem 'bower-rails'
 gem 'modernizr-rails'
