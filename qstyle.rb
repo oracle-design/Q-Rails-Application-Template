@@ -58,6 +58,8 @@ gem_group :development, :test do
   # Linter
   gem "rubocop"
 
+  # 偵測 N+1 問題
+  gem 'bullet'
 end
 
 # 使用者系統
@@ -91,6 +93,8 @@ gem 'modernizr-rails'
 gem 'carrierwave'
 gem 'mini_magick'
 
+gem 'settingslogic'
+
 if yes?("是否使用 Facebook oauth登入")
   gem "omniauth"
   gem "omniauth-facebook"
@@ -107,13 +111,16 @@ environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_com
 environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components","bootstrap-sass-official","assets","fonts")'
 environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components","fontawesome","fonts")'
 
+# 將 i18n 預設語言設為 zh-TW
+environment 'config.i18n.default_locale = "zh-TW"'
+
+# 透過 Bower 安裝前端 lib
 copy_file 'Bowerfile'
-
 rake "bower:install"
-
 
 run "guard init"
 
+# 移除 test folder
 run "rm -rf test"
 
 # 使用建議的 ignore 設定
@@ -124,11 +131,11 @@ copy_file '.gitignore'
 rake 'db:create'
 rake 'db:migrate'
 
-generate(:controller, "frontend")
-route "resources :frontend, :only => [:index]"
+generate(:controller, "prototype")
+route "root 'prototype#index'"
 
-file 'app/controllers/frontend_controller.rb', <<-CODE
-  class FrontendController < ApplicationController
+file 'app/controllers/prototype_controller.rb', <<-CODE
+  class PrototypeController < ApplicationController
 
     def index
     end
@@ -159,7 +166,6 @@ inside 'app/assets/stylesheets' do
   copy_file 'partials/_mixins.css.sass'
   copy_file 'partials/_typography.css.sass'
   copy_file 'partials/_variables.css.sass'
-  copy_file 'vendor/_bootstrap.scss'
   copy_file 'vendor/_bs_variables.scss'
 end
 
@@ -167,12 +173,24 @@ end
 inside 'app/views' do
   remove_file 'layouts/application.html.erb'
   copy_file 'layouts/application.html.erb'
-  copy_file 'partials/_header.html.erb'
-  copy_file 'partials/_footer.html.erb'
-  copy_file 'partials/_GA.html.erb'
-  copy_file 'frontend/index.html.erb'
+  copy_file 'common/_header.html.erb'
+  copy_file 'common/_footer.html.erb'
+  copy_file 'common/_GA.html.erb'
+  copy_file 'prototype/index.html.erb'
 end
 
+# 其他設定
+#===============================================================================
+
+# SittingsLogic & i18n
+inside 'app/models' do
+  copy_file 'settings.rb'
+end
+
+inside 'app/config' do
+  copy_file 'application.yml'
+  copy_file 'locals/zh-TW.yml'
+end
 
 
 # git 初始化
