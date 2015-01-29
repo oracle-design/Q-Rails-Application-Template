@@ -199,6 +199,19 @@ inside 'app/config' do
   copy_file 'locals/zh-TW.yml'
 end
 
+# capistrano
+copy_file 'Capfile'
+
+inside 'app/config' do
+  copy_file 'deploy.rb'
+  copy_file 'deploy/production.rb'
+end
+
+copy_file 'shared/config/application.yml'
+copy_file 'shared/config/database.yml'
+copy_file 'shared/config/secret.yml'
+
+
 
 # git 初始化
 #===============================================================================
