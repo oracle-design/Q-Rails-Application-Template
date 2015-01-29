@@ -207,9 +207,82 @@ inside 'app/config' do
   copy_file 'deploy/production.rb'
 end
 
-copy_file 'shared/config/application.yml'
-copy_file 'shared/config/database.yml'
-copy_file 'shared/config/secret.yml'
+file 'shared/config/application.yml', <<-CODE
+  # config/application.yml
+  defaults: &defaults
+    capistrano:
+      app_name: 'app_name'
+      repo_url: 'git@github.com:FunnyQ/NAME_HERE.git'
+      deploy_to: '/home/deployer/PATH_HERE'
+      role: 'role@your.domain'
+      server: 'your.domain'
+      user: 'userName'
+
+    mysql:
+      detabase:
+      password:
+      username:
+
+    facebook:
+      app_id:
+      secret:
+
+    disqus:
+      short_name:
+      secret_key:
+      public_key:
+      access_token:
+
+  development:
+    <<: *defaults
+    neat_setting: 800
+
+  test:
+    <<: *defaults
+
+  production:
+    <<: *defaults
+    secret_key: # rake secret to generate one
+CODE
+
+file 'shared/config/database.yml', <<-CODE
+  default: &default
+    adapter: mysql2
+    encoding: utf8
+    database: <%= Settings.mysql.detabase %>
+    username: <%= Settings.mysql.username %>
+    password: <%= Settings.mysql.password %>
+    host: 127.0.0.1
+    port: 3306
+
+  development:
+    <<: *default
+
+
+  # Warning: The database defined as "test" will be erased and
+  # re-generated from your development database when you run "rake".
+  # Do not set this db to the same as development or production.
+  test:
+    <<: *default
+    database: db/test.sqlite3
+
+  production:
+    <<: *default
+CODE
+
+file 'shared/config/secrets.yml', <<-CODE
+  development:
+    secret_key_base: 4190de7294576817164261152b2a5d36d61ec6be54d336e514e15f662618df30bf3c33502853aa8c1321263bc4a90702c0205e110ee1f61f177cbfde9ae36a05
+
+  test:
+    secret_key_base: b4a2beda7d4aef1b4555daa71b799d402fa4b7fc273095e125f1b6a2ed91ed84cae46a882de0b9970e7c8091f7c76b2e0568afef03fe9285600b026d15660cc0
+
+  # Do not keep production secrets in the repository,
+  # instead read values from the environment.
+  production:
+    secret_key_base: <%= Settings.production.secret_key %>
+CODE
+
 
 
 
