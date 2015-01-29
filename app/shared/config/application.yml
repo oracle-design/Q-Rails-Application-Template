@@ -32,4 +32,3 @@ test:
 
 production:
   <<: *defaults
-  secret_key: # rake secret to generate one
