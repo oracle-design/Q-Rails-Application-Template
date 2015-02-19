@@ -68,6 +68,9 @@ gem_group :development, :test do
   gem 'capistrano-rbenv', github: "capistrano/rbenv"
 end
 
+# mysql adapter
+gem 'mysql2'
+
 # 使用者系統
 gem "devise"
 
@@ -202,7 +205,7 @@ end
 # capistrano
 copy_file 'Capfile'
 
-inside 'app/config' do
+inside 'config' do
   copy_file 'deploy.rb'
   copy_file 'deploy/production.rb'
 end
@@ -210,6 +213,9 @@ end
 file 'shared/config/application.yml', <<-CODE
   # config/application.yml
   defaults: &defaults
+
+    secret_key: ""
+
     capistrano:
       app_name: 'app_name'
       repo_url: 'git@github.com:FunnyQ/NAME_HERE.git'
@@ -280,7 +286,7 @@ file 'shared/config/secrets.yml', <<-CODE
   # Do not keep production secrets in the repository,
   # instead read values from the environment.
   production:
-    secret_key_base: <%= Settings.production.secret_key %>
+    secret_key_base: <%= Settings.secret_key %>
 CODE
 
 
