@@ -50,6 +50,10 @@ gem_group :development, :test do
   gem "pry-rails"
   gem "pry-stack_explorer"
   gem "pry-theme"
+  gem "hirb", :require => false
+  gem "hirb-unicode", :require => false
+  gem "awesome_print", :require => false
+
 
   # 取代 fixture 來製作假資料
   gem "factory_girl_rails"
@@ -98,13 +102,20 @@ gem 'compass-rails', '2.0.1'
 gem 'bower-rails'
 gem 'modernizr-rails'
 
+# notifications
+gem 'growlyflash', '0.6.2'
 gem 'sweet-alert-confirm', '~> 0.1.0'
+gem 'hipchat'
+
+# App settings function
+gem "rails-settings-cached", "0.4.1"
+gem 'settingslogic'
+
 
 # 檔案上傳與影像處理
 gem 'carrierwave'
 gem 'mini_magick'
 
-gem 'settingslogic'
 
 if yes?("是否使用 Facebook oauth登入")
   gem "omniauth"
@@ -137,10 +148,13 @@ run "rm -rf test"
 remove_file '.gitignore'
 copy_file '.gitignore'
 
+copy_file '.pryrc'
+
 # 建立資料庫
 rake 'db:create'
 rake 'db:migrate'
 
+# 建立 prototype controller for prototyping
 generate(:controller, "prototype")
 route "root 'prototype#index'"
 
@@ -294,6 +308,8 @@ CODE
 
 # git 初始化
 #===============================================================================
-git :init
-git add: "."
-git commit: "-m 'Initial commit'"
+after_bundle do
+  git :init
+  git add: '.'
+  git commit: "-a -m 'Initial commit'"
+end

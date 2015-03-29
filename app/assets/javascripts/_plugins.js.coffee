@@ -11,6 +11,8 @@
 #= require jquery_ujs
 #= require turbolinks
 #= require vendor/_bootstrap
+#= require growlyflash
+#= require sweet-alert-confirm
 
 
 

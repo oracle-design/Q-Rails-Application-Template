@@ -7,10 +7,19 @@ set :deploy_to, Sittings.capistrano.deploy_to
 
 set :linked_files, %w{config/database.yml}
 set :linked_files, %w{config/database.yml config/application.yml config/secrets.yml}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+
+# Hipchat
+require 'hipchat/capistrano'
+
+set :hipchat_token, "f5014392093763daafd6989d47f61d"
+set :hipchat_room_name, "Oracle Design Projects"
+set :hipchat_announce, true # notify users?
+set :hipchat_color, 'green' #finished deployment message color
+set :hipchat_failed_color, 'red' #cancelled deployment message color
 
 # install bower components before assets precompile
 before "deploy:assets:precompile", "bower:install"
