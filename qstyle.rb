@@ -220,7 +220,7 @@ end
 # capistrano
 copy_file 'Capfile'
 
-inside 'config' do
+inside 'app/config' do
   copy_file 'deploy.rb'
   copy_file 'deploy/production.rb'
 end
