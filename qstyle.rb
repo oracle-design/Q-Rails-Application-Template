@@ -212,7 +212,7 @@ inside 'app/models' do
   copy_file 'settings.rb'
 end
 
-inside 'app/config' do
+inside 'config' do
   copy_file 'application.yml'
   copy_file 'locals/zh-TW.yml'
 end
@@ -220,7 +220,7 @@ end
 # capistrano
 copy_file 'Capfile'
 
-inside 'app/config' do
+inside 'config' do
   copy_file 'deploy.rb'
   copy_file 'deploy/production.rb'
 end
