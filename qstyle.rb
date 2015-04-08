@@ -175,6 +175,7 @@ inside 'app/assets/javascripts' do
   remove_file 'application.js'
   copy_file   'application.js.coffee'
   copy_file   '_plugins.js.coffee'
+  copy_file   '_app-base.js.coffee'
   copy_file   'vendor/_bootstrap.js'
   copy_file   'vendor/_console_err.js'
 end

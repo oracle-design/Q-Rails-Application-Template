@@ -17,20 +17,21 @@
     <%= javascript_include_tag 'modernizr' %>
 
   </head>
-  <body>
+  <body class='<%= "#{controller.controller_name}-#{controller.action_name}" %>'>
       <!--[if lt IE 7]>
           <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
       <![endif]-->
 
-  <%= render :partial => "common/header" %>
+  <%= render :partial => 'common/header' %>
 
   <%= yield %>
 
-  <%= render :partial => "common/footer" %>
+  <%= render :partial => 'common/footer' %>
 
 
 
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true, 'data-turbolinks-eval' => false %>
+  <%= yield :handwrite_js %>
 
   </body>
 </html>

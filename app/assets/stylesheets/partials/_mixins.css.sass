@@ -11,6 +11,15 @@
     background-image: asset-url($image)
     background-size: $width $height
 
+// font smoothing
+=font-smoothing($value: antialiased)
+  @if $value == antialiased
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+  @else
+    -webkit-font-smoothing: subpixel-antialiased
+    -moz-osx-font-smoothing: auto
+
 // go die IE
 //
 // how to use:
