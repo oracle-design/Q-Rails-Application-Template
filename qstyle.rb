@@ -131,6 +131,7 @@ run "bundle"
 environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components")'
 environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components","bootstrap-sass-official","assets","fonts")'
 environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components","fontawesome","fonts")'
+environment 'config.assets.precompile += %w(.svg .eot .woff .ttf .woff2 .otf)'
 
 # 將 i18n 預設語言設為 zh-TW
 environment 'config.i18n.default_locale = "zh-TW"'
@@ -228,56 +229,39 @@ end
 file 'shared/config/application.yml', <<-CODE
   # config/application.yml
   defaults: &defaults
-
-    secret_key: ""
-
-    capistrano:
-      app_name: 'app_name'
-      repo_url: 'git@github.com:FunnyQ/NAME_HERE.git'
-      deploy_to: '/home/deployer/PATH_HERE'
-      role: 'role@your.domain'
-      server: 'your.domain'
-      user: 'userName'
-
     mysql:
       detabase:
       password:
       username:
 
-    facebook:
-      app_id:
-      secret:
-
-    disqus:
-      short_name:
-      secret_key:
-      public_key:
-      access_token:
-
   development:
     <<: *defaults
-    neat_setting: 800
 
   test:
     <<: *defaults
 
   production:
     <<: *defaults
-    secret_key: # rake secret to generate one
+    secret_key: '' # `rake secret` to generate one
 CODE
 
 file 'shared/config/database.yml', <<-CODE
   default: &default
-    adapter: mysql2
-    encoding: utf8
-    database: <%= Settings.mysql.detabase %>
-    username: <%= Settings.mysql.username %>
-    password: <%= Settings.mysql.password %>
-    host: 127.0.0.1
-    port: 3306
+    adapter: sqlite3
+    pool: 5
+    timeout: 5000
+
+    # adapter: mysql2
+    # encoding: utf8
+    # database: <%= Settings.mysql.detabase %>
+    # username: <%= Settings.mysql.username %>
+    # password: <%= Settings.mysql.password %>
+    # host: 127.0.0.1
+    # port: 3306
 
   development:
     <<: *default
+    database: db/development.sqlite3
 
 
   # Warning: The database defined as "test" will be erased and
@@ -289,6 +273,7 @@ file 'shared/config/database.yml', <<-CODE
 
   production:
     <<: *default
+    database: db/production.sqlite3
 CODE
 
 file 'shared/config/secrets.yml', <<-CODE

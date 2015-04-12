@@ -1,11 +1,11 @@
 set :stage, :production
 
-role :app, %w{Settings.capistrano.role}
-role :web, %w{Settings.capistrano.role}
-role :db,  %w{Settings.capistrano.role}
+role :app, %w{role@your.domain}
+role :web, %w{role@your.domain}
+role :db,  %w{role@your.domain}
 
 
-server Settings.capistrano.server, user: Settings.capistrano.user, roles: %w{web app}
+server 'your.domain', user: 'userName', roles: %w{web app}
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options

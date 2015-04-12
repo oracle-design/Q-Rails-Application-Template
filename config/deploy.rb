@@ -1,9 +1,9 @@
 # config valid only for Capistrano 3.1
 lock '3.1.0'
 
-set :application, Sittings.capistrano.app_name
-set :repo_url, Sittings.capistrano.repo_url
-set :deploy_to, Sittings.capistrano.deploy_to
+set :application, 'AppName'
+set :repo_url, 'git@github.com:USERNAME/REPONAME.git'
+set :deploy_to, '/home/USERNAME/PATH_HERE'
 
 set :linked_files, %w{config/database.yml}
 set :linked_files, %w{config/database.yml config/application.yml config/secrets.yml}
@@ -15,8 +15,8 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sys
 # Hipchat
 require 'hipchat/capistrano'
 
-set :hipchat_token, "f5014392093763daafd6989d47f61d"
-set :hipchat_room_name, "Oracle Design Projects"
+set :hipchat_token, ""
+set :hipchat_room_name, ""
 set :hipchat_announce, true # notify users?
 set :hipchat_color, 'green' #finished deployment message color
 set :hipchat_failed_color, 'red' #cancelled deployment message color
