@@ -1,6 +1,5 @@
 # basic asset
 asset 'susy'
-asset 'fontawesome'
 asset 'breakpoint-sass'
 asset 'sassy-buttons'
 asset 'modernizr'

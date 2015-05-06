@@ -45,16 +45,6 @@ gem_group :development, :test do
   # 移除 log 中不必要的部份
   gem "quiet_assets"
 
-  # Debug 工具
-  gem "pry"
-  gem "pry-rails"
-  gem "pry-stack_explorer"
-  gem "pry-theme"
-  gem "hirb", :require => false
-  gem "hirb-unicode", :require => false
-  gem "awesome_print", :require => false
-
-
   # 取代 fixture 來製作假資料
   gem "factory_girl_rails"
   gem "database_cleaner"
@@ -98,9 +88,13 @@ end
 gem 'sprockets-rails', '3.0.0.beta1'
 gem 'sass-rails', '5.0.0.beta1'
 gem 'compass-rails', '2.0.1'
+gem 'font-awesome-sass'
 
 gem 'bower-rails'
 gem 'modernizr-rails'
+
+# Debug 工具
+gem 'awesome_rails_console'
 
 # notifications
 gem 'growlyflash', '0.6.2'
