@@ -69,7 +69,7 @@ gem 'mysql2'
 gem "devise"
 
 # API 開發工具組
-if yes?("是否進行開發 API？ yes/no")
+if yes?("是否進行開發 API？ (yes/no)")
 
   # 資料序列化工具（JSON）
   gem "active_model_serializers"
@@ -85,9 +85,9 @@ if yes?("是否進行開發 API？ yes/no")
 end
 
 # 前端相關
-gem 'sprockets-rails', '3.0.0.beta1'
-gem 'sass-rails', '5.0.0.beta1'
-gem 'compass-rails', '2.0.1'
+gem 'sprockets-rails'
+gem 'sass-rails', '5.0.1'
+gem 'compass-rails', '2.0.4'
 gem 'font-awesome-sass'
 
 gem 'bower-rails'
@@ -105,13 +105,15 @@ gem 'hipchat'
 gem "rails-settings-cached", "0.4.1"
 gem 'settingslogic'
 
+# for View components and cache
+gem 'cells', "~> 4.0.0.beta2"
 
 # 檔案上傳與影像處理
 gem 'carrierwave'
 gem 'mini_magick'
 
 
-if yes?("是否使用 Facebook oauth登入")
+if yes?("是否使用 Facebook oauth 登入 (yes/no)")
   gem "omniauth"
   gem "omniauth-facebook"
 end
