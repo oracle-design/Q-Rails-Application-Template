@@ -131,6 +131,7 @@ environment 'config.assets.precompile += %w(.svg .eot .woff .ttf .woff2 .otf)'
 
 # 將 i18n 預設語言設為 zh-TW
 environment 'config.i18n.default_locale = "zh-TW"'
+environment 'config.i18n.available_locales = [:"zh-TW"]'
 
 # 透過 Bower 安裝前端 lib
 copy_file 'Bowerfile'
@@ -211,7 +212,7 @@ end
 
 inside 'config' do
   copy_file 'application.yml'
-  copy_file 'locals/zh-TW.yml'
+  copy_file 'locales/zh-TW.yml'
 end
 
 # capistrano
@@ -229,6 +230,7 @@ file 'shared/config/application.yml', <<-CODE
       detabase:
       password:
       username:
+    secret_key: '' # `rake secret` to generate one
 
   development:
     <<: *defaults
