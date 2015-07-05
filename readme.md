@@ -136,6 +136,14 @@ gem 'bower-rails'
 gem 'modernizr-rails'
 ```
 
+`Bowerfile` 內容
+```rb
+asset 'susy'
+asset 'breakpoint-sass'
+asset 'sassy-buttons'
+asset 'modernizr'
+```
+
 #### 可選功能
 
 ```rb
@@ -184,3 +192,25 @@ end
     └── prototype
         └── index.html.erb
 ```
+
+## 會自動設定的內容
+
+自動將 `bower_components` 加入 assets pipeline。
+
+自動設定好 Guard，開發時先在終端機輸入 `guard` 啟動即可自動重新整理瀏覽器、自動執行測試、自動重新開啟伺服器（pow）
+
+自動建立資料庫（預設使用 sqlite）
+
+自動產生 Prototype controller，並把 root 設定在 'prototype#index'，方便直接開始建立前端 prototype。
+
+自動設定 SittingsLogic，設定檔為 `config/application.yml`。
+
+自動設定 i18n（預設地區為 zh-TW），並自動新增 `zh-TW.yml` 語系檔。
+
+自動設定 Capistrano，但仍需要依照需求編輯 `Capfile`、`config/deploy.rb`、`config/deploy/production.rb`
+
+自動新增 shared 目錄隔離敏感資料，並自動用 `ln` hardlink 檔案到正確的位置。
+
+自動執行 `git init`，自動做 initial commit。
+
+
