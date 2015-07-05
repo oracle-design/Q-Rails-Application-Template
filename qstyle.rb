@@ -1,25 +1,25 @@
 # Rails Application Template
 #
-# 2014/11/10
+# 2015/07/05
 #
 # FunnyQ
 
 # 支援此 application template 相對位置的檔案操作
 #===============================================================================
 def source_paths
-    [File.expand_path(File.dirname(__FILE__))]
+  [File.expand_path(File.dirname(__FILE__))]
 end
 
 # 加入安裝需要的 GEMS
 #===============================================================================
 
-# 移除舊版 sass-rails，改用 5.0.0.beta1，因為需要使用 susy2 and compass
+# 移除舊版 sass-rails，改用 5.0.1，因為需要使用 susy2 and compass
 gsub_file 'Gemfile', /.+'sass-rails'.+\n/, ''
 
 # for test and development ENV
 gem_group :development, :test do
 
-  # RSpec 相關
+  # RSpec
   gem "rspec-rails"
   gem "shoulda-matchers"
   gem "spring-commands-rspec"
@@ -94,6 +94,11 @@ gem 'font-awesome-sass'
 gem 'bower-rails'
 gem 'modernizr-rails'
 
+if yes?('是否使用 React.js？（yes/no）')
+  gem 'react-rails', '~> 1.0'
+  gem 'sprockets-coffee-react'
+end
+
 # Debug 工具
 gem 'awesome_rails_console'
 
@@ -144,8 +149,6 @@ run "rm -rf test"
 # 使用建議的 ignore 設定
 remove_file '.gitignore'
 copy_file '.gitignore'
-
-copy_file '.pryrc'
 
 # 建立資料庫
 rake 'db:create'
