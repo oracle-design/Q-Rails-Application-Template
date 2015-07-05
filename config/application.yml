@@ -9,7 +9,7 @@ defaults: &defaults
     user: 'userName'
 
   mysql:
-    detabase:
+    database:
     password:
     username:
 
@@ -22,6 +22,8 @@ defaults: &defaults
     secret_key:
     public_key:
     access_token:
+
+  secret_key: '4190de7294576817164261152b2a5d36d61ec6be54d336e514e15f662618df30bf3c33502853aa8c1321263bc4a90702c0205e110ee1f61f177cbfde9ae36a05'
 
 development:
   <<: *defaults

@@ -125,8 +125,6 @@ run "bundle"
 
 # 將 bower 管理的前端套件路徑加入 assets pipeline
 environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components")'
-environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components","bootstrap-sass-official","assets","fonts")'
-environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components","fontawesome","fonts")'
 environment 'config.assets.precompile += %w(.svg .eot .woff .ttf .woff2 .otf)'
 
 # 將 i18n 預設語言設為 zh-TW
@@ -227,7 +225,7 @@ file 'shared/config/application.yml', <<-CODE
   # config/application.yml
   defaults: &defaults
     mysql:
-      detabase:
+      database:
       password:
       username:
     secret_key: '' # `rake secret` to generate one
@@ -251,7 +249,7 @@ file 'shared/config/database.yml', <<-CODE
 
     # adapter: mysql2
     # encoding: utf8
-    # database: <%= Settings.mysql.detabase %>
+    # database: <%= Settings.mysql.database %>
     # username: <%= Settings.mysql.username %>
     # password: <%= Settings.mysql.password %>
     # host: 127.0.0.1
