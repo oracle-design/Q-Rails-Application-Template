@@ -155,17 +155,15 @@ after_bundle do
   rake 'db:migrate'
 
   # 建立 prototype controller for prototyping
-  generate(:controller, "prototype")
   route "root 'prototype#index'"
 
-  remove_file 'app/controllers/prototype_controller.rb'
   file 'app/controllers/prototype_controller.rb', <<-CODE
-    class PrototypeController < ApplicationController
+class PrototypeController < ApplicationController
 
-      def index
-      end
+  def index
+  end
 
-    end
+end
   CODE
 
   # 前端基本環境建立
@@ -224,71 +222,71 @@ after_bundle do
   end
 
   file 'shared/config/application.yml', <<-CODE
-    # config/application.yml
-    defaults: &defaults
-      mysql:
-        database:
-        password:
-        username:
-      secret_key: '' # `rake secret` to generate one
+# config/application.yml
+defaults: &defaults
+  mysql:
+    database:
+    password:
+    username:
+  secret_key: '' # `rake secret` to generate one
 
-    development:
-      <<: *defaults
+development:
+  <<: *defaults
 
-    test:
-      <<: *defaults
+test:
+  <<: *defaults
 
-    production:
-      <<: *defaults
-      secret_key: '' # `rake secret` to generate one
+production:
+  <<: *defaults
+  secret_key: '' # `rake secret` to generate one
   CODE
   run 'rm config/application.yml'
   run 'ln shared/config/application.yml config/application.yml'
 
   file 'shared/config/database.yml', <<-CODE
-    default: &default
-      adapter: sqlite3
-      pool: 5
-      timeout: 5000
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
 
-      # adapter: mysql2
-      # encoding: utf8
-      # database: <%= Settings.mysql.database %>
-      # username: <%= Settings.mysql.username %>
-      # password: <%= Settings.mysql.password %>
-      # host: 127.0.0.1
-      # port: 3306
+  # adapter: mysql2
+  # encoding: utf8
+  # database: <%= Settings.mysql.database %>
+  # username: <%= Settings.mysql.username %>
+  # password: <%= Settings.mysql.password %>
+  # host: 127.0.0.1
+  # port: 3306
 
-    development:
-      <<: *default
-      database: db/development.sqlite3
+development:
+  <<: *default
+  database: db/development.sqlite3
 
 
-    # Warning: The database defined as "test" will be erased and
-    # re-generated from your development database when you run "rake".
-    # Do not set this db to the same as development or production.
-    test:
-      <<: *default
-      database: db/test.sqlite3
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: db/test.sqlite3
 
-    production:
-      <<: *default
-      database: db/production.sqlite3
+production:
+  <<: *default
+  database: db/production.sqlite3
   CODE
   run 'rm config/database.yml'
   run 'ln shared/config/database.yml config/database.yml'
 
   file 'shared/config/secrets.yml', <<-CODE
-    development:
-      secret_key_base: 4190de7294576817164261152b2a5d36d61ec6be54d336e514e15f662618df30bf3c33502853aa8c1321263bc4a90702c0205e110ee1f61f177cbfde9ae36a05
+development:
+  secret_key_base: 4190de7294576817164261152b2a5d36d61ec6be54d336e514e15f662618df30bf3c33502853aa8c1321263bc4a90702c0205e110ee1f61f177cbfde9ae36a05
 
-    test:
-      secret_key_base: b4a2beda7d4aef1b4555daa71b799d402fa4b7fc273095e125f1b6a2ed91ed84cae46a882de0b9970e7c8091f7c76b2e0568afef03fe9285600b026d15660cc0
+test:
+  secret_key_base: b4a2beda7d4aef1b4555daa71b799d402fa4b7fc273095e125f1b6a2ed91ed84cae46a882de0b9970e7c8091f7c76b2e0568afef03fe9285600b026d15660cc0
 
-    # Do not keep production secrets in the repository,
-    # instead read values from the environment.
-    production:
-      secret_key_base: <%= Settings.secret_key %>
+# Do not keep production secrets in the repository,
+# instead read values from the environment.
+production:
+  secret_key_base: <%= Settings.secret_key %>
   CODE
   run 'rm config/secrets.yml'
   run 'ln shared/config/secrets.yml config/secrets.yml'
