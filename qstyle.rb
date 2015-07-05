@@ -210,7 +210,6 @@ inside 'app/models' do
 end
 
 inside 'config' do
-  copy_file 'application.yml'
   copy_file 'locales/zh-TW.yml'
 end
 
@@ -241,6 +240,8 @@ file 'shared/config/application.yml', <<-CODE
     <<: *defaults
     secret_key: '' # `rake secret` to generate one
 CODE
+run 'rm config/application.yml'
+run 'ln shared/config/application.yml config/application.yml'
 
 file 'shared/config/database.yml', <<-CODE
   default: &default
@@ -272,6 +273,8 @@ file 'shared/config/database.yml', <<-CODE
     <<: *default
     database: db/production.sqlite3
 CODE
+run 'rm config/database.yml'
+run 'ln shared/config/database.yml config/database.yml'
 
 file 'shared/config/secrets.yml', <<-CODE
   development:
@@ -285,6 +288,8 @@ file 'shared/config/secrets.yml', <<-CODE
   production:
     secret_key_base: <%= Settings.secret_key %>
 CODE
+run 'rm config/secrets.yml'
+run 'ln shared/config/secrets.yml config/secrets.yml'
 
 
 
