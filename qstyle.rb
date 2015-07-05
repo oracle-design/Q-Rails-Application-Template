@@ -158,6 +158,7 @@ after_bundle do
   generate(:controller, "prototype")
   route "root 'prototype#index'"
 
+  remove_file 'app/controllers/prototype_controller.rb'
   file 'app/controllers/prototype_controller.rb', <<-CODE
     class PrototypeController < ApplicationController
 
@@ -176,7 +177,6 @@ after_bundle do
     copy_file   'application.js.coffee'
     copy_file   '_plugins.js.coffee'
     copy_file   '_app-base.js.coffee'
-    copy_file   'vendor/_bootstrap.js'
     copy_file   'vendor/_console_err.js'
   end
 
@@ -191,7 +191,6 @@ after_bundle do
     copy_file 'partials/_mixins.css.sass'
     copy_file 'partials/_typography.css.sass'
     copy_file 'partials/_variables.css.sass'
-    copy_file 'vendor/_bs_variables.scss'
   end
 
   # View
@@ -200,7 +199,7 @@ after_bundle do
     copy_file 'layouts/application.html.erb'
     copy_file 'common/_header.html.erb'
     copy_file 'common/_footer.html.erb'
-    copy_file 'common/_GA.html.erb'
+    copy_file 'common/_ga.html.erb'
     copy_file 'prototype/index.html.erb'
   end
 
