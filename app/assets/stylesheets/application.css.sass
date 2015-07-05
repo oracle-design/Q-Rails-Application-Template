@@ -1,5 +1,4 @@
 /*
- *= require bootstrap-sass-official/assets/stylesheets/_bootstrap
  *= require sweet-alert
  */
 
@@ -8,10 +7,21 @@
 @import susy/sass/susy
 @import breakpoint-sass/stylesheets/breakpoint
 @import sassy-buttons/sassybuttons
+
+// bootstrap 只引入需要的部分
+@import bootstrap-sprockets
+@import bootstrap/variables
+@import bootstrap/mixins
+@import bootstrap/alerts
+@import bootstrap/close
+
 @import font-awesome-sprockets
 @import font-awesome
+
+// flash message
 @import growlyflash
 
+// partials
 @import partials/variables
 @import partials/color
 @import partials/typography
@@ -19,6 +29,7 @@
 @import partials/helper
 @import partials/layout
 
+// pages
 @import pages/index
 
 

@@ -88,6 +88,7 @@ end
 gem 'sprockets-rails'
 gem 'sass-rails', '5.0.1'
 gem 'compass-rails', '2.0.4'
+gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 
 gem 'bower-rails'
