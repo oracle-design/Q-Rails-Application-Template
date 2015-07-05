@@ -144,3 +144,43 @@ if yes?('是否使用 React.js？（yes/no）')
   gem 'sprockets-coffee-react'
 end
 ```
+
+## assets 檔案結構
+
+```sh
+.
+└── assets
+    ├── images
+    ├── javascripts
+    │   ├── _app-base.js.coffee # 需設定 AppName
+    │   ├── _plugins.js.coffee # require 需要的 libs
+    │   ├── application.js.coffee 
+    │   └── vendor # 放第三方 snippets
+    │       └── _console_err.js
+    └── stylesheets
+        ├── application.css.sass
+        ├── pages # 依頁面整理的 sass 片段
+        │   └── _index.css.sass
+        └── partials
+            ├── _color.css.sass # 顏色定義
+            ├── _helper.css.sass # 可複用的 helpers
+            ├── _layout.css.sass # 排版相關設定、placeholder
+            ├── _mixins.css.sass # 自訂 mixins
+            ├── _typography.css.sass # 字型相關定義
+            └── _variables.css.sass # 全域變數定義
+```
+
+## views 檔案結構
+
+```sh
+.
+└── views
+    ├── common # 通用 partials
+    │   ├── _footer.html.erb 
+    │   ├── _ga.html.erb 
+    │   └── _header.html.erb
+    ├── layouts 
+    │   └── application.html.erb
+    └── prototype
+        └── index.html.erb
+```
