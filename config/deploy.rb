@@ -12,14 +12,21 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sys
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-# Hipchat
-require 'hipchat/capistrano'
+# Slack integration
+set :slack_webhook, "https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXX"
+set :slack_team, "XXXXXXXXX"
 
-set :hipchat_token, ""
-set :hipchat_room_name, ""
-set :hipchat_announce, true # notify users?
-set :hipchat_color, 'green' #finished deployment message color
-set :hipchat_failed_color, 'red' #cancelled deployment message color
+set :slack_icon_url,         -> { 'http://gravatar.com/avatar/885e1c523b7975c4003de162d8ee8fee?r=g&s=40' }
+set :slack_icon_emoji,       -> { ':shipit:' } # will override icon_url, Must be a string (ex: ':shipit:')
+set :slack_channel,          -> { '#deploy-notification' }
+set :slack_username,         -> { 'Deploy-Bot' }
+set :slack_run_starting,     -> { true }
+set :slack_run_finished,     -> { true }
+set :slack_run_failed,       -> { true }
+set :slack_msg_starting,     -> { ":rocket: #{ENV['USER'] || ENV['USERNAME']} 正在進行一個...部署的...動作，正在將 #{fetch :application} 的 #{fetch :branch} 分支部署到 Production :computer:" }
+set :slack_msg_finished,     -> { ":pray: #{fetch :application} 部署成功，#{ENV['USER'] || ENV['USERNAME']} 好棒棒 :kissing_heart:" }
+set :slack_msg_failed,       -> { ":shit: #{fetch :application} 部署失敗，我覺得 #{ENV['USER'] || ENV['USERNAME']} 你還是快去檢查 Log 吧？ :no_good:"}
+
 
 # install bower components before assets precompile
 before "deploy:assets:precompile", "bower:install"
