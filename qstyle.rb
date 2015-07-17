@@ -149,7 +149,75 @@ after_bundle do
 
   # 使用建議的 ignore 設定
   remove_file '.gitignore'
-  copy_file '.gitignore'
+  file '.gitignore', <<-CODE
+  ################################################################################
+  ## 參考 https://github.com/github/gitignore/blob/master/Rails.gitignore       ##
+  ################################################################################
+
+  *.rbc
+  capybara-*.html
+  .rspec
+  /log
+  /tmp
+  /db/*.sqlite3
+  /public/system
+  /public/uploads
+  /public/assets/ckeditor
+  /coverage/
+  /spec/tmp
+  **.orig
+  rerun.txt
+  pickle-email-*.html
+
+  # TODO Comment out these rules if you are OK with secrets being uploaded to the repo
+  config/initializers/secret_token.rb
+  config/secrets.yml
+  config/application.yml
+  config/database.yml
+  shared/
+
+  ## Environment normalisation:
+  /.bundle
+  /vendor/bundle
+
+  # these should all be checked in to normalise the environment:
+  # Gemfile.lock, .ruby-version, .ruby-gemset
+
+  # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+  .rvmrc
+
+  # if using bower-rails ignore default bower_components path bower.json files
+  /vendor/assets/bower_components
+  *.bowerrc
+  bower.json
+
+  ################################################################################
+  ## 參考 https://github.com/github/gitignore/blob/master/Ruby.gitignore        ##
+  ################################################################################
+
+
+  *.gem
+  *.rbc
+  /.config
+  /coverage/
+  /InstalledFiles
+  /pkg/
+  /spec/reports/
+  /test/tmp/
+  /test/version_tmp/
+  /tmp/
+
+  ## Specific to RubyMotion:
+  .dat*
+  .repl_history
+  build/
+
+  ## Documentation cache and generated files:
+  /.yardoc/
+  /_yardoc/
+  /doc/
+  /rdoc/
+  CODE
 
   # 建立資料庫
   rake 'db:create'
