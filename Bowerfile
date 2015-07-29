@@ -1,5 +1,6 @@
 # basic asset
 asset 'susy'
 asset 'breakpoint-sass'
-asset 'sassy-buttons'
-asset 'modernizr'
+asset 'sassy-buttons', github: 'FunnyQ/Sassy-Buttons#compass-mixins'
+asset 'compass-mixins'
+

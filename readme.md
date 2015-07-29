@@ -17,6 +17,15 @@ git clone [url_of_this_repo]
 rails new example -m ~/Q-rails-application-template/qstyle.rb
 ```
 
+## 更新
+
+**2015-07-29：**
+
+  - 使用 Libsass（SassC-rails gem）加快 sass compile 速度
+  - 移除 compass-rails（與 Libsass 有衝突）
+  - 使用 bower 的 compass-mixins 取代官方版本的 compass
+  - 改用相依 compass-mixins 的修改版 sassy-buttons
+
 ## Gems
 
 ### 開發工具

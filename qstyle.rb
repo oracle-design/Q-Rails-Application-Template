@@ -87,10 +87,10 @@ end
 
 # 前端相關
 gem 'sprockets-rails'
-gem 'sass-rails', '5.0.1'
-gem 'compass-rails', '2.0.4'
+gem 'sass-rails'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
+gem 'sassc-rails'
 
 gem 'bower-rails'
 gem 'modernizr-rails'
@@ -106,7 +106,6 @@ gem 'awesome_rails_console'
 # notifications
 gem 'growlyflash', '0.6.2'
 gem 'sweet-alert-confirm', '~> 0.1.0'
-gem 'hipchat'
 
 # App settings function
 gem "rails-settings-cached", "0.4.1"
@@ -150,73 +149,73 @@ after_bundle do
   # 使用建議的 ignore 設定
   remove_file '.gitignore'
   file '.gitignore', <<-CODE
-  ################################################################################
-  ## 參考 https://github.com/github/gitignore/blob/master/Rails.gitignore       ##
-  ################################################################################
+################################################################################
+## 參考 https://github.com/github/gitignore/blob/master/Rails.gitignore       ##
+################################################################################
 
-  *.rbc
-  capybara-*.html
-  .rspec
-  /log
-  /tmp
-  /db/*.sqlite3
-  /public/system
-  /public/uploads
-  /public/assets/ckeditor
-  /coverage/
-  /spec/tmp
-  **.orig
-  rerun.txt
-  pickle-email-*.html
+*.rbc
+capybara-*.html
+.rspec
+/log
+/tmp
+/db/*.sqlite3
+/public/system
+/public/uploads
+/public/assets/ckeditor
+/coverage/
+/spec/tmp
+**.orig
+rerun.txt
+pickle-email-*.html
 
-  # TODO Comment out these rules if you are OK with secrets being uploaded to the repo
-  config/initializers/secret_token.rb
-  config/secrets.yml
-  config/application.yml
-  config/database.yml
-  shared/
+# TODO Comment out these rules if you are OK with secrets being uploaded to the repo
+config/initializers/secret_token.rb
+config/secrets.yml
+config/application.yml
+config/database.yml
+shared/
 
-  ## Environment normalisation:
-  /.bundle
-  /vendor/bundle
+## Environment normalisation:
+/.bundle
+/vendor/bundle
 
-  # these should all be checked in to normalise the environment:
-  # Gemfile.lock, .ruby-version, .ruby-gemset
+# these should all be checked in to normalise the environment:
+# Gemfile.lock, .ruby-version, .ruby-gemset
 
-  # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
-  .rvmrc
+# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+.rvmrc
 
-  # if using bower-rails ignore default bower_components path bower.json files
-  /vendor/assets/bower_components
-  *.bowerrc
-  bower.json
+# if using bower-rails ignore default bower_components path bower.json files
+/vendor/assets/bower_components
+*.bowerrc
+bower.json
 
-  ################################################################################
-  ## 參考 https://github.com/github/gitignore/blob/master/Ruby.gitignore        ##
-  ################################################################################
+################################################################################
+## 參考 https://github.com/github/gitignore/blob/master/Ruby.gitignore        ##
+################################################################################
 
 
-  *.gem
-  *.rbc
-  /.config
-  /coverage/
-  /InstalledFiles
-  /pkg/
-  /spec/reports/
-  /test/tmp/
-  /test/version_tmp/
-  /tmp/
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/test/tmp/
+/test/version_tmp/
+/tmp/
 
-  ## Specific to RubyMotion:
-  .dat*
-  .repl_history
-  build/
+## Specific to RubyMotion:
+.dat*
+.repl_history
+build/
 
-  ## Documentation cache and generated files:
-  /.yardoc/
-  /_yardoc/
-  /doc/
-  /rdoc/
+## Documentation cache and generated files:
+/.yardoc/
+/_yardoc/
+/doc/
+/rdoc/
   CODE
 
   # 建立資料庫
@@ -266,7 +265,6 @@ end
     copy_file 'layouts/application.html.erb'
     copy_file 'common/_header.html.erb'
     copy_file 'common/_footer.html.erb'
-    copy_file 'common/_ga.html.erb'
     copy_file 'prototype/index.html.erb'
   end
 
@@ -309,7 +307,7 @@ production:
   <<: *defaults
   secret_key: '' # `rake secret` to generate one
   CODE
-  run 'rm config/application.yml'
+
   run 'ln shared/config/application.yml config/application.yml'
 
   file 'shared/config/database.yml', <<-CODE
@@ -342,6 +340,7 @@ production:
   <<: *default
   database: db/production.sqlite3
   CODE
+
   run 'rm config/database.yml'
   run 'ln shared/config/database.yml config/database.yml'
 
