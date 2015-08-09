@@ -169,11 +169,11 @@ rerun.txt
 pickle-email-*.html
 
 # TODO Comment out these rules if you are OK with secrets being uploaded to the repo
-config/initializers/secret_token.rb
-config/secrets.yml
-config/application.yml
-config/database.yml
-shared/
+/config/initializers/secret_token.rb
+/config/secrets.yml
+/config/application.yml
+/config/database.yml
+/shared/
 
 ## Environment normalisation:
 /.bundle
@@ -295,7 +295,7 @@ defaults: &defaults
     database:
     password:
     username:
-  secret_key: '' # `rake secret` to generate one
+  secret_key: '4190de7294576817164261152b2a5d36d61ec6be54d336e514e15f662618df30bf3c33502853aa8c1321263bc4a90702c0205e110ee1f61f177cbfde9ae36a05'
 
 development:
   <<: *defaults
@@ -346,10 +346,10 @@ production:
 
   file 'shared/config/secrets.yml', <<-CODE
 development:
-  secret_key_base: 4190de7294576817164261152b2a5d36d61ec6be54d336e514e15f662618df30bf3c33502853aa8c1321263bc4a90702c0205e110ee1f61f177cbfde9ae36a05
+  secret_key_base: <%= Settings.secret_key %>
 
 test:
-  secret_key_base: b4a2beda7d4aef1b4555daa71b799d402fa4b7fc273095e125f1b6a2ed91ed84cae46a882de0b9970e7c8091f7c76b2e0568afef03fe9285600b026d15660cc0
+  secret_key_base: <%= Settings.secret_key %>
 
 # Do not keep production secrets in the repository,
 # instead read values from the environment.
