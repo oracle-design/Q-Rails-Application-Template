@@ -118,6 +118,8 @@ gem 'cells', "~> 4.0.0.beta2"
 gem 'carrierwave'
 gem 'mini_magick'
 
+# SEO
+gem 'meta-tags'
 
 if yes?("是否使用 Facebook oauth 登入 (yes/no)")
   gem "omniauth"

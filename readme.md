@@ -18,6 +18,9 @@ rails new example -m ~/Q-rails-application-template/qstyle.rb
 ```
 
 ## 更新
+**2015-07-29：**
+
+  - 增加 meta-tag gem
 
 **2015-07-29：**
 
