@@ -282,12 +282,26 @@ end
     copy_file 'locales/zh-TW.yml'
   end
 
+  # adding staging env"
+  copy_file 'config/environments/staging.rb'
+
+  # setting up Bullet
+  insert_into_file "config/environments/development.rb", :after => "# config.action_view.raise_on_missing_translations = true" do
+"
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+  end
+"
+  end
+
   # capistrano
   copy_file 'Capfile'
 
   inside 'config' do
     copy_file 'deploy.rb'
     copy_file 'deploy/production.rb'
+    copy_file 'deploy/staging.rb'
   end
 
   file 'shared/config/application.yml', <<-CODE
@@ -304,6 +318,10 @@ development:
 
 test:
   <<: *defaults
+
+staging:
+  <<: *defaults
+  secret_key: '' # `rake secret` to generate one
 
 production:
   <<: *defaults
@@ -338,6 +356,10 @@ test:
   <<: *default
   database: db/test.sqlite3
 
+staging:
+  <<: *default
+  database: db/staging.sqlite3
+
 production:
   <<: *default
   database: db/production.sqlite3
@@ -353,6 +375,9 @@ development:
 test:
   secret_key_base: <%= Settings.secret_key %>
 
+staging:
+  secret_key_base: <%= Settings.secret_key %>
+
 # Do not keep production secrets in the repository,
 # instead read values from the environment.
 production:
@@ -361,7 +386,17 @@ production:
   run 'rm config/secrets.yml'
   run 'ln shared/config/secrets.yml config/secrets.yml'
 
+  # 詢問是否安裝 Devise
+  if yes?("要不要順便幫你安裝 Devise？(yes/no)")
+    generate "devise:install"
+    model_name = ask("你的使用者 model 名稱要設定為？ [預設為 user]")
+    model_name = "user" if model_name.blank?
+    generate "devise", model_name
+  end
+
 end
+
+
 
 
 # git 初始化

@@ -18,6 +18,11 @@ rails new example -m ~/Q-rails-application-template/qstyle.rb
 ```
 
 ## 更新
+**2015-09-02**
+  - 增加 Staging ENV 設定
+  -可自動安裝與產生 Devise model
+  -自動設定 Bullet
+
 **2015-07-29：**
 
   - 增加 meta-tag gem
