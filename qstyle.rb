@@ -121,6 +121,12 @@ gem 'mini_magick'
 # SEO
 gem 'meta-tags'
 
+# enum
+gem 'simple_enum'
+
+# 權限管理
+gem "pundit"
+
 if yes?("是否使用 Facebook oauth 登入 (yes/no)")
   gem "omniauth"
   gem "omniauth-facebook"
@@ -246,6 +252,7 @@ end
     copy_file   '_plugins.js.coffee'
     copy_file   '_app-base.js.coffee'
     copy_file   'vendor/_console_err.js'
+    copy_file   'classes/.js_objects'
   end
 
   # Sass
@@ -259,6 +266,12 @@ end
     copy_file 'partials/_mixins.css.sass'
     copy_file 'partials/_typography.css.sass'
     copy_file 'partials/_variables.css.sass'
+  end
+
+  # Helper
+  inside 'app/helpers' do
+    remove_file 'application_helper.rb'
+    copy_file 'application_helper.rb'
   end
 
   # View
