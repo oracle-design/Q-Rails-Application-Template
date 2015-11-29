@@ -20,6 +20,14 @@ rails new example -m ~/Q-rails-application-template/qstyle.rb
 ## 更新
 
 **2015-09-30**
+  - 增加 koala 和 cells-erb
+  - 更新 sweet-alert-confirm
+  - 預設不產生 assets 檔案
+  - 自動執行 rspec:install
+  - 增加 `.rubocop.yml` 檔案
+  - 新增 'grape-entity' 取代 serializer
+
+**2015-09-30**
   - 增加 classes 資料夾 for coffeeScript class
   - 增加 simple_enum 和 pundit gem
   - 增加 image_placeholder helper

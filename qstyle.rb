@@ -77,7 +77,7 @@ if yes?("是否進行開發 API？ (yes/no)")
 
   # API 開發工具
   gem "grape"
-  gem "grape-active_model_serializers"
+  gem 'grape-entity'
   gem "grape-swagger-rails"
 
   # 支援跨站請求
@@ -105,14 +105,15 @@ gem 'awesome_rails_console'
 
 # notifications
 gem 'growlyflash', '0.6.2'
-gem 'sweet-alert-confirm', '~> 0.1.0'
+gem 'sweet-alert-confirm'
 
 # App settings function
 gem "rails-settings-cached", "0.4.1"
 gem 'settingslogic'
 
 # for View components and cache
-gem 'cells', "~> 4.0.0.beta2"
+gem 'cells'
+gem 'cells-erb'
 
 # 檔案上傳與影像處理
 gem 'carrierwave'
@@ -130,6 +131,7 @@ gem "pundit"
 if yes?("是否使用 Facebook oauth 登入 (yes/no)")
   gem "omniauth"
   gem "omniauth-facebook"
+  gem "koala", "~> 2.2"
 end
 
 # 設定動作
@@ -143,13 +145,21 @@ after_bundle do
 
   # 將 i18n 預設語言設為 zh-TW
   environment 'config.i18n.default_locale = "zh-TW"'
-  environment 'config.i18n.available_locales = [:"zh-TW"]'
+  environment 'config.i18n.available_locales = [:"zh-TW", :en]'
+
+  # 預設不產生 assets 檔案
+  environment 'config.generators.assets = false'
 
   # 透過 Bower 安裝前端 lib
   copy_file 'Bowerfile'
   rake "bower:install"
 
-  run "guard init"
+  # 安裝 Rspec
+  generate 'rspec:install'
+
+  copy_file '.rubocop.yml'
+
+  run "bundle exec guard init"
 
   # 移除 test folder
   run "rm -rf test"
