@@ -17,6 +17,8 @@ git clone [url_of_this_repo]
 rails new example -m ~/Q-rails-application-template/qstyle.rb
 ```
 
+（必須事先安裝 node.js，建議使用 nvm 或 ndenv。)
+
 ## 更新
 
 **2016-02-26**
