@@ -32,6 +32,7 @@ gem_group :development, :test do
   gem 'guard-livereload'
   gem 'guard-rspec', require: false
   gem 'guard-pow'
+  gem 'terminal-notifier-guard'
 
   # 在 model 檔案中註釋 schema
   gem 'annotate'
@@ -72,15 +73,12 @@ gem "devise"
 # API 開發工具組
 if yes?("是否進行開發 API？ (yes/no)")
 
-  # 資料序列化工具（JSON）
-  gem "active_model_serializers"
-
   # API 開發工具
   gem "grape"
   gem 'grape-entity'
   gem "grape-swagger-rails"
 
-  # 支援跨站請求
+  # 跨站請求
   gem "rack-cors", require: "rack/cors"
 
 end
@@ -88,9 +86,13 @@ end
 # 前端相關
 gem 'sprockets-rails'
 gem 'sass-rails'
-gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'sassc-rails'
+gem 'bourbon'
+gem 'neat'
+if yes?('是否安裝 bootstrap-sass gem？（yes/no）')
+  gem 'bootstrap-sass'
+end
 
 gem 'bower-rails'
 gem 'modernizr-rails'
@@ -104,7 +106,8 @@ end
 gem 'awesome_rails_console'
 
 # notifications
-gem 'growlyflash', '0.6.2'
+gem 'growlyflash'
+gem 'sweet-alert'
 gem 'sweet-alert-confirm'
 
 # App settings function
@@ -121,9 +124,6 @@ gem 'mini_magick'
 
 # SEO
 gem 'meta-tags'
-
-# enum
-gem 'simple_enum'
 
 # 權限管理
 gem "pundit"
@@ -270,12 +270,17 @@ end
     remove_file 'application.css'
     copy_file 'application.css.sass'
     copy_file 'pages/_index.css.sass'
-    copy_file 'partials/_color.css.sass'
-    copy_file 'partials/_helper.css.sass'
-    copy_file 'partials/_layout.css.sass'
-    copy_file 'partials/_mixins.css.sass'
-    copy_file 'partials/_typography.css.sass'
-    copy_file 'partials/_variables.css.sass'
+    copy_file 'base/_base.scss'
+    copy_file 'base/_buttons.scss'
+    copy_file 'base/_forms.scss'
+    copy_file 'base/_grid-settings.scss'
+    copy_file 'base/_helpers.sass'
+    copy_file 'base/_layout.sass'
+    copy_file 'base/_lists.scss'
+    copy_file 'base/_mixins.sass'
+    copy_file 'base/_tables.scss'
+    copy_file 'base/_typography.scss'
+    copy_file 'base/_variables.scss'
   end
 
   # Helper

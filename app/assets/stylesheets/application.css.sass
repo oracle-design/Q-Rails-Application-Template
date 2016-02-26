@@ -1,20 +1,21 @@
-/*
- *= require sweet-alert
- */
 
-@import compass-mixins/lib/compass/css3
-@import compass-mixins/lib/compass/utilities
+@import sweet-alert/sweet-alert
 @import susy/sass/susy
-@import breakpoint-sass/stylesheets/breakpoint
-@import sassy-buttons/stylesheets/sassy-buttons
+
+$root-font-size: 1.5em
+@import sanitize-css/sanitize
+
+@import bourbon
+@import neat
+@import base/base
 
 // bootstrap 只引入需要的部分
-@import bootstrap-sprockets
-@import bootstrap/variables
-@import bootstrap/mixins
-@import bootstrap/normalize
-@import bootstrap/alerts
-@import bootstrap/close
+// @import bootstrap-sprockets
+// @import bootstrap/variables
+// @import bootstrap/mixins
+// @import bootstrap/normalize
+// @import bootstrap/alerts
+// @import bootstrap/close
 
 @import font-awesome-sprockets
 @import font-awesome
@@ -22,15 +23,5 @@
 // flash message
 @import growlyflash
 
-// partials
-@import partials/variables
-@import partials/color
-@import partials/typography
-@import partials/mixins
-@import partials/helper
-@import partials/layout
-
 // pages
 @import pages/index
-
-

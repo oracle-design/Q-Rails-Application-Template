@@ -1,9 +1,5 @@
-// *************************************
-//
-//   helper classes
-//
-//
-// *************************************
+$susy: (columns: 12, gutters: 0, math: fluid, output: float, gutter-position: inside)
++border-box-sizing
 
 .trans-1s
   +transition(all, 1s)
@@ -13,7 +9,7 @@
   +transition(all, 0.3s)
 
 .box-shadow
-  +box-shadow(rgba(black, 0.6) 0 0 10px)
+  box-shadow: rgba(black, 0.6) 0 0 10px
 
 .hidden
   display: none
@@ -23,35 +19,34 @@
 
 .hidden-mobile
   display: none
-  +breakpoint($b-mobile)
+  +susy-breakpoint($b-mobile)
     display: block
 
 .only-mobile
   display: block
-  +breakpoint($b-mobile)
+  +susy-breakpoint($b-mobile)
     display: none
 
 .only-desktop-up
   display: none
-  +breakpoint($b-pad)
+  +susy-breakpoint($b-pad)
     display: block
 
 .only-desktop
   display: none
-  +breakpoint($b-pad)
+  +susy-breakpoint($b-pad)
     display: block
-  +breakpoint($b-desktop)
+  +susy-breakpoint($b-desktop)
     display: none
 
 .only-large
   display: none
-  +breakpoint($b-desktop)
+  +susy-breakpoint($b-desktop)
     display: block
 
 .only-pad
   display: none
-  +breakpoint($b-mobile)
+  +susy-breakpoint($b-mobile)
     display: block
-  +breakpoint($b-pad)
+  +susy-breakpoint($b-pad)
     display: none
-

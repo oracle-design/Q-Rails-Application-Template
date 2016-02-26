@@ -1,6 +1,3 @@
 # basic asset
 asset 'susy'
-asset 'breakpoint-sass'
-asset 'sassy-buttons', github: 'FunnyQ/Sassy-Buttons#compass-mixins'
-asset 'compass-mixins', github: 'FunnyQ/compass-mixins#master'
-
+asset 'sanitize-css'

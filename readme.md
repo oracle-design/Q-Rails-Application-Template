@@ -19,6 +19,17 @@ rails new example -m ~/Q-rails-application-template/qstyle.rb
 
 ## 更新
 
+**2016-02-26**
+  - 新增 `terminal-notifier-guard` 以提示目前的測試結果
+  - 新增 `bourbon` 和 `neat` 取代 `compass`
+  - 更新 `growlyflash` 版本
+  - 使用 `sweet-alert` 取代 rails-asset 版本
+  - 移除 `simple_enum`，未來一律使用 rails 內建的 enum 功能
+  - 使用 `bitters` 提供的 base CSS 設定取代原本的 partials 內容（目前版本為 `bitters 1.2.0`，有部分自訂內容）
+  - 移除 `application.sass` 中 assets pipeline 提供的 require 功能，改用 sass 的 import
+  - 使用 `sanitize-css` 做 CSS reset，並將字體預設大小訂為 16px
+  - 新增 flash 的自訂樣式設定在 javascripts 中（`flash-style`）
+
 **2015-09-30**
   - 增加 koala 和 cells-erb
   - 更新 sweet-alert-confirm
