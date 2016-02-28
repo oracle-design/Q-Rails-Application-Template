@@ -261,6 +261,7 @@ end
     copy_file   'application.js.coffee'
     copy_file   '_plugins.js.coffee'
     copy_file   '_app-base.js.coffee'
+    copy_file   '_flash-style.js.coffee'
     copy_file   'vendor/_console_err.js'
     copy_file   'classes/.js_objects'
   end
