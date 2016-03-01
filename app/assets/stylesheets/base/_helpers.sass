@@ -1,6 +1,3 @@
-$susy: (columns: 12, gutters: 0, math: fluid, output: float, gutter-position: inside)
-+border-box-sizing
-
 .trans-1s
   +transition(all, 1s)
 .trans-05s
@@ -19,34 +16,34 @@ $susy: (columns: 12, gutters: 0, math: fluid, output: float, gutter-position: in
 
 .hidden-mobile
   display: none
-  +susy-breakpoint($b-mobile)
+  +breakpoint($b-mobile)
     display: block
 
 .only-mobile
   display: block
-  +susy-breakpoint($b-mobile)
+  +breakpoint($b-mobile)
     display: none
 
 .only-desktop-up
   display: none
-  +susy-breakpoint($b-pad)
+  +breakpoint($b-pad)
     display: block
 
 .only-desktop
   display: none
-  +susy-breakpoint($b-pad)
+  +breakpoint($b-pad)
     display: block
-  +susy-breakpoint($b-desktop)
+  +breakpoint($b-desktop)
     display: none
 
 .only-large
   display: none
-  +susy-breakpoint($b-desktop)
+  +breakpoint($b-desktop)
     display: block
 
 .only-pad
   display: none
-  +susy-breakpoint($b-mobile)
+  +breakpoint($b-mobile)
     display: block
-  +susy-breakpoint($b-pad)
+  +breakpoint($b-pad)
     display: none
