@@ -152,7 +152,7 @@ after_bundle do
 
   # 透過 Bower 安裝前端 lib
   copy_file 'Bowerfile'
-  rake "bower:install"
+  run 'bundle exec rake bower:install'
 
   # 安裝 Rspec
   generate 'rspec:install'
@@ -237,8 +237,8 @@ build/
   CODE
 
   # 建立資料庫
-  rake 'db:create'
-  rake 'db:migrate'
+  run 'bundle exec rake db:create'
+  run 'bundle exec rake db:migrate'
 
   # 建立 prototype controller for prototyping
   route "root 'prototype#index'"
