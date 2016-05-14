@@ -380,11 +380,9 @@ end
   # capistrano
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/Capfile', 'Capfile'
 
-  inside 'config' do
-    copy_file 'deploy.rb'
-    copy_file 'deploy/production.rb'
-    copy_file 'deploy/staging.rb'
-  end
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/config/deploy.rb', 'config/deploy.rb'
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/config/deploy/production.rb', 'config/deploy/production.rb'
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/config/deploy/staging.rb', 'config/deploy/staging.rb'
 
   file 'shared/config/application.yml', <<-CODE
 # config/application.yml
