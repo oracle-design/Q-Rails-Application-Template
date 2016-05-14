@@ -5,13 +5,14 @@
 # FunnyQ
 
 # 支援此 application template 相對位置的檔案操作
-#===============================================================================
 def source_paths
   [File.expand_path(File.dirname(__FILE__))]
 end
 
+# clean file
+run 'rm README.rdoc'
+
 # 加入安裝需要的 GEMS
-#===============================================================================
 
 # 移除舊版 sass-rails，改用 5.0.1，因為需要使用 susy2 and compass
 gsub_file 'Gemfile', /.+'sass-rails'.+\n/, ''
@@ -23,6 +24,9 @@ gem_group :development, :test do
   gem "rspec-rails"
   gem "shoulda-matchers"
   gem "spring-commands-rspec"
+
+  # Time Mock
+  gem 'timecop'
 
   # Capybara 整合測試
   gem "capybara"
@@ -139,16 +143,48 @@ end
 
 after_bundle do
 
-  # 將 bower 管理的前端套件路徑加入 assets pipeline
-  environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components")'
-  environment 'config.assets.precompile += %w(.svg .eot .woff .ttf .woff2 .otf)'
+  application  do
+    %q{
+      # Set bower components path and precompile type
+      config.assets.paths << Rails.root.join("vendor","assets","bower_components")
+      config.assets.precompile += %w(.svg .eot .woff .ttf .woff2 .otf)
 
-  # 將 i18n 預設語言設為 zh-TW
-  environment 'config.i18n.default_locale = "zh-TW"'
-  environment 'config.i18n.available_locales = [:"zh-TW", :en]'
+      # Set timezone
+      config.time_zone = 'Taipei'
+      config.active_record.default_timezone = :local
 
-  # 預設不產生 assets 檔案
-  environment 'config.generators.assets = false'
+      # Set locale
+      config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+      config.i18n.default_locale = "zh-TW"
+      config.i18n.available_locales = [:"zh-TW", :en]
+
+      # Set generator
+      config.generators do |g|
+        g.orm :active_record
+        g.view_specs false
+        g.routing_specs false
+        g.helper_specs false
+        g.request_specs false
+        g.assets false
+        g.helper false
+      end
+    }
+  end
+
+  # # 將 bower 管理的前端套件路徑加入 assets pipeline
+  # environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components")'
+  # environment 'config.assets.precompile += %w(.svg .eot .woff .ttf .woff2 .otf)'
+
+  # # Set timezone
+  # environment 'config.time_zone = "Taipei"'
+  # environment 'config.active_record.default_timezone = :local'
+
+  # # 將 i18n 預設語言設為 zh-TW
+  # environment 'config.i18n.default_locale = "zh-TW"'
+  # environment 'config.i18n.available_locales = [:"zh-TW", :en]'
+
+  # # 預設不產生 assets 檔案
+  # environment 'config.generators.assets = false'
 
   # 透過 Bower 安裝前端 lib
   copy_file 'Bowerfile'
@@ -156,6 +192,32 @@ after_bundle do
 
   # 安裝 Rspec
   generate 'rspec:install'
+
+  insert_into_file 'spec/rails_helper.rb',%(
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:deletion)
+  end
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+  config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :deletion
+  end
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  VCR.configure do |c|
+    c.cassette_library_dir = 'spec/vcr'
+    c.hook_into :webmock
+    c.allow_http_connections_when_no_cassette = true
+  end
+  ), after: 'RSpec.configure do |config|'
+
+  insert_into_file 'spec/rails_helper.rb', "\nrequire 'capybara/rails'", after: "require 'rspec/rails'"
 
   copy_file '.rubocop.yml'
 
