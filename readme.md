@@ -23,7 +23,9 @@ rails new example -m ~/Q-rails-application-template/qstyle.rb
 
 **2016-05-12**
   - 更新 rubocop 設定
+  - 更新 capistrano 設定
   - 更新 Template 部分寫法
+  - 改用 get 從網路上取得檔案
 
 **2016-02-26**
   - 新增 `terminal-notifier-guard` 以提示目前的測試結果
