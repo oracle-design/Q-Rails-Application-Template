@@ -21,6 +21,10 @@ rails new example -m ~/Q-rails-application-template/qstyle.rb
 
 ## 更新
 
+**2016-05-12**
+  - 更新 rubocop 設定
+  - 更新 Template 部分寫法
+
 **2016-02-26**
   - 新增 `terminal-notifier-guard` 以提示目前的測試結果
   - 新增 `bourbon` 和 `neat` 取代 `compass`
@@ -206,7 +210,7 @@ end
     ├── javascripts
     │   ├── _app-base.js.coffee # 需設定 AppName
     │   ├── _plugins.js.coffee # require 需要的 libs
-    │   ├── application.js.coffee 
+    │   ├── application.js.coffee
     │   └── vendor # 放第三方 snippets
     │       └── _console_err.js
     └── stylesheets
@@ -228,10 +232,10 @@ end
 .
 └── views
     ├── common # 通用 partials
-    │   ├── _footer.html.erb 
-    │   ├── _ga.html.erb 
+    │   ├── _footer.html.erb
+    │   ├── _ga.html.erb
     │   └── _header.html.erb
-    ├── layouts 
+    ├── layouts
     │   └── application.html.erb
     └── prototype
         └── index.html.erb
@@ -256,5 +260,3 @@ end
 自動新增 shared 目錄隔離敏感資料，並自動用 `ln` hardlink 檔案到正確的位置。
 
 自動執行 `git init`，自動做 initial commit。
-
-
