@@ -216,8 +216,8 @@ after_bundle do
     Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
   ), after: "require 'rspec/rails'"
 
-  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/support/api_helper.rb', 'support/api_helper.rb'
-  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/support/factory_girl.rb', 'support/factory_girl.rb'
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/spec/support/api_helpers.rb', 'spec/support/api_helpers.rb'
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/spec/support/factory_girl.rb', 'spec/support/factory_girl.rb'
 
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/.rubocop.yml', '.rubocop.yml'
 
