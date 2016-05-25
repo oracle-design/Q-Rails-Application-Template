@@ -19,18 +19,17 @@ gsub_file 'Gemfile', /.+'sass-rails'.+\n/, ''
 
 # for test and development ENV
 gem_group :development, :test do
-
   # RSpec
-  gem "rspec-rails"
-  gem "shoulda-matchers"
-  gem "spring-commands-rspec"
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+  gem 'spring-commands-rspec'
 
   # Time Mock
   gem 'timecop'
 
   # Capybara 整合測試
-  gem "capybara"
-  gem "capybara-screenshot"
+  gem 'capybara'
+  gem 'capybara-screenshot'
 
   # 使用 Guard 將開發流程的雜事自動化
   gem 'guard-livereload'
@@ -42,20 +41,20 @@ gem_group :development, :test do
   gem 'annotate'
 
   # 增強錯誤畫面
-  gem "better_errors"
+  gem 'better_errors'
 
   # 支援 chrome 的 rails panel
-  gem "meta_request"
+  gem 'meta_request'
 
   # 移除 log 中不必要的部份
-  gem "quiet_assets"
+  gem 'quiet_assets'
 
   # 取代 fixture 來製作假資料
-  gem "factory_girl_rails"
-  gem "database_cleaner"
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
 
   # Linter
-  gem "rubocop"
+  gem 'rubocop'
 
   # 偵測 N+1 問題
   gem 'bullet'
@@ -64,7 +63,7 @@ gem_group :development, :test do
   gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1.1'
-  gem 'capistrano-rbenv', github: "capistrano/rbenv"
+  gem 'capistrano-rbenv', github: 'capistrano/rbenv'
   gem 'slackistrano', require: false
 end
 
@@ -72,18 +71,18 @@ end
 gem 'mysql2'
 
 # 使用者系統
-gem "devise"
+gem 'devise'
 
 # API 開發工具組
 if yes?("是否進行開發 API？ (yes/no)")
 
   # API 開發工具
-  gem "grape"
+  gem 'grape'
   gem 'grape-entity'
-  gem "grape-swagger-rails"
+  gem 'grape-swagger-rails'
 
   # 跨站請求
-  gem "rack-cors", require: "rack/cors"
+  gem 'rack-cors', require: 'rack/cors'
 
 end
 
@@ -94,9 +93,7 @@ gem 'font-awesome-sass'
 gem 'sassc-rails'
 gem 'bourbon'
 gem 'neat'
-if yes?('是否安裝 bootstrap-sass gem？（yes/no）')
-  gem 'bootstrap-sass'
-end
+gem 'bootstrap-sass' if yes?('是否安裝 bootstrap-sass gem？（yes/no）')
 
 gem 'bower-rails'
 gem 'modernizr-rails'
@@ -115,7 +112,7 @@ gem 'sweet-alert'
 gem 'sweet-alert-confirm'
 
 # App settings function
-gem "rails-settings-cached", "0.4.1"
+gem 'rails-settings-cached', '0.4.1'
 gem 'settingslogic'
 
 # for View components and cache
@@ -130,19 +127,18 @@ gem 'mini_magick'
 gem 'meta-tags'
 
 # 權限管理
-gem "pundit"
+gem 'pundit'
 
 if yes?("是否使用 Facebook oauth 登入 (yes/no)")
-  gem "omniauth"
-  gem "omniauth-facebook"
-  gem "koala", "~> 2.2"
+  gem 'omniauth'
+  gem 'omniauth-facebook'
+  gem 'koala', '~> 2.2'
 end
 
 # 設定動作
 #===============================================================================
 
 after_bundle do
-
   application  do
     %q{
       # Set bower components path and precompile type
@@ -171,21 +167,6 @@ after_bundle do
     }
   end
 
-  # # 將 bower 管理的前端套件路徑加入 assets pipeline
-  # environment 'config.assets.paths << Rails.root.join("vendor","assets","bower_components")'
-  # environment 'config.assets.precompile += %w(.svg .eot .woff .ttf .woff2 .otf)'
-
-  # # Set timezone
-  # environment 'config.time_zone = "Taipei"'
-  # environment 'config.active_record.default_timezone = :local'
-
-  # # 將 i18n 預設語言設為 zh-TW
-  # environment 'config.i18n.default_locale = "zh-TW"'
-  # environment 'config.i18n.available_locales = [:"zh-TW", :en]'
-
-  # # 預設不產生 assets 檔案
-  # environment 'config.generators.assets = false'
-
   # 透過 Bower 安裝前端 lib
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/Bowerfile', 'Bowerfile'
 
@@ -194,7 +175,7 @@ after_bundle do
   # 安裝 Rspec
   generate 'rspec:install'
 
-  insert_into_file 'spec/rails_helper.rb',%(
+  insert_into_file 'spec/rails_helper.rb', %(
   config.before(:suite) do
     DatabaseCleaner.clean_with(:deletion)
   end
@@ -216,16 +197,34 @@ after_bundle do
     c.hook_into :webmock
     c.allow_http_connections_when_no_cassette = true
   end
+  Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      # Choose a test framework:
+      with.test_framework :rspec
+
+      # Or, choose the following (which implies all of the above):
+      with.library :rails
+    end
+  end
+
+  Capybara.javascript_driver = :webkit
+
   ), after: 'RSpec.configure do |config|'
 
-  insert_into_file 'spec/rails_helper.rb', "\nrequire 'capybara/rails'", after: "require 'rspec/rails'"
+  insert_into_file 'spec/rails_helper.rb', %(
+    require 'capybara/rails'
+    Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+  ), after: "require 'rspec/rails'"
+
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/support/api_helper.rb', 'support/api_helper.rb'
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/support/factory_girl.rb', 'support/factory_girl.rb'
 
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/.rubocop.yml', '.rubocop.yml'
 
-  run "bundle exec guard init"
+  run 'bundle exec guard init'
 
   # 移除 test folder
-  run "rm -rf test"
+  run 'rm -rf test'
 
   # 使用建議的 ignore 設定
   remove_file '.gitignore'
@@ -368,13 +367,13 @@ end
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/config/environments/staging.rb', 'config/environments/staging.rb'
 
   # setting up Bullet
-  insert_into_file "config/environments/development.rb", :after => "# config.action_view.raise_on_missing_translations = true" do
-"
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.console = true
-  end
-"
+  insert_into_file 'config/environments/development.rb', after: '# config.action_view.raise_on_missing_translations = true' do
+    "
+      config.after_initialize do
+        Bullet.enable = true
+        Bullet.console = true
+      end
+    "
   end
 
   # capistrano
@@ -468,16 +467,12 @@ production:
 
   # 詢問是否安裝 Devise
   if yes?("要不要順便幫你安裝 Devise？(yes/no)")
-    generate "devise:install"
+    generate 'devise:install'
     model_name = ask("你的使用者 model 名稱要設定為？ [預設為 user]")
-    model_name = "user" if model_name.blank?
-    generate "devise", model_name
+    model_name = 'user' if model_name.blank?
+    generate 'devise', model_name
   end
-
 end
-
-
-
 
 # git 初始化
 #===============================================================================

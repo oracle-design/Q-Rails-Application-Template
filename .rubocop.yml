@@ -9,7 +9,7 @@ Lint/EndAlignment:
   AlignWith: keyword
 
 Metrics/LineLength:
-  Max: 120
+  Enabled: false
 
 Metrics/AbcSize:
   Enabled: false
