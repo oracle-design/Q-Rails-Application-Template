@@ -108,7 +108,7 @@ gem 'awesome_rails_console'
 
 # notifications
 gem 'growlyflash'
-gem 'sweet-alert'
+gem 'rails-assets-sweetalert', source: 'https://rails-assets.org'
 gem 'sweet-alert-confirm'
 
 # App settings function
