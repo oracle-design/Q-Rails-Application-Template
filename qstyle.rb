@@ -27,6 +27,10 @@ gem_group :development, :test do
   # Time Mock
   gem 'timecop'
 
+  # mock data for 3rd party API
+  gem 'vcr'
+  gem 'webmock'
+
   # Capybara 整合測試
   gem 'capybara'
   gem 'capybara-screenshot'
@@ -52,6 +56,7 @@ gem_group :development, :test do
   # 取代 fixture 來製作假資料
   gem 'factory_girl_rails'
   gem 'database_cleaner'
+  gem 'faker'
 
   # Linter
   gem 'rubocop'
