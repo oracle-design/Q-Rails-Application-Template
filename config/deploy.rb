@@ -22,9 +22,25 @@ set :slack_channel,          -> { '#deploy-notification' }
 set :slack_username,         -> { 'Deploy-Bot' }
 set :slack_run_starting,     -> { true }
 set :slack_run_finished,     -> { true }
-set :slack_run_failed,       -> { true }
-set :slack_msg_starting,     -> { ":rocket: #{ENV['USER'] || ENV['USERNAME']} 正在進行一個...部署的...動作，正在將 #{fetch :application} 的 #{fetch :branch} 分支部署到 Production :computer:" }
-set :slack_msg_finished,     -> { ":pray: #{fetch :application} 部署成功，#{ENV['USER'] || ENV['USERNAME']} 好棒棒 :kissing_heart:" }
+set :slack_msg_updating,     -> { ":rocket: #{ENV['USER'] || ENV['USERNAME']} 正在進行一個...部署的...動作，正在將 #{fetch :application} 的 #{fetch :branch} 分支部署到 Production :computer:" }
+set :slack_msg_updated,     -> { ":pray: #{fetch :application} 部署成功，#{ENV['USER'] || ENV['USERNAME']} 好棒棒 :kissing_heart:" }
+set :slack_fields_updated, [
+  {
+    title: "專案名稱",
+    value: "#{fetch(:application)}",
+    short: true
+  },
+  {
+    title: "環境",
+    value: fetch(:stage),
+    short: true
+  },
+  {
+    title: "部署者",
+    value: fetch(:slack_deploy_user),
+    short: true
+  }
+]
 set :slack_msg_failed,       -> { ":shit: #{fetch :application} 部署失敗，我覺得 #{ENV['USER'] || ENV['USERNAME']} 你還是快去檢查 Log 吧？ :no_good:" }
 
 Rake::Task['deploy:compile_assets'].clear
