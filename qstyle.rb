@@ -50,9 +50,6 @@ gem_group :development, :test do
   # 支援 chrome 的 rails panel
   gem 'meta_request'
 
-  # 移除 log 中不必要的部份
-  gem 'quiet_assets'
-
   # 取代 fixture 來製作假資料
   gem 'factory_girl_rails'
   gem 'database_cleaner'
@@ -65,11 +62,19 @@ gem_group :development, :test do
   gem 'bullet'
 
   # Deploy 工具
-  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1.1'
   gem 'capistrano-rbenv', github: 'capistrano/rbenv'
-  gem 'slackistrano', require: false
+  gem 'slackistrano'
+  gem "capistrano-db-tasks", require: false
+
+  # 影像優化處理
+  gem 'image_optim'
+  gem 'image_optim_pack'
+
+  # 監測頁面效能
+  gem 'rack-mini-profiler', require: false
 
   # odd Tools set
   gem 'espresso_martini', github: 'oracle-design/espresso_martini'
@@ -102,6 +107,7 @@ gem 'sassc-rails'
 gem 'bourbon'
 gem 'neat'
 gem 'bootstrap-sass' if yes?('是否安裝 bootstrap-sass gem？（yes/no）')
+gem "autoprefixer-rails"
 
 gem 'bower-rails'
 gem 'modernizr-rails'
@@ -120,8 +126,10 @@ gem 'rails-assets-sweetalert', source: 'https://rails-assets.org'
 gem 'sweet-alert-confirm'
 
 # App settings function
-gem 'rails-settings-cached', '0.4.1'
-gem 'settingslogic'
+gem 'rails-settings-cached'
+
+# store sensitive settings
+gem 'figaro'
 
 # for View components and cache
 gem 'cells'
@@ -392,27 +400,29 @@ end
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/config/deploy/staging.rb', 'config/deploy/staging.rb'
 
   file 'shared/config/application.yml', <<-CODE
-# config/application.yml
-defaults: &defaults
-  mysql:
-    database:
-    password:
-    username:
-  secret_key: '4190de7294576817164261152b2a5d36d61ec6be54d336e514e15f662618df30bf3c33502853aa8c1321263bc4a90702c0205e110ee1f61f177cbfde9ae36a05'
+# Add configuration values here, as shown below.
+#
+# pusher_app_id: "2954"
+# pusher_key: 7381a978f7dd7f9a1117
+# pusher_secret: abdc3b896a0ffb85d373
+# stripe_api_key: sk_test_2J0l093xOyW72XUYJHE4Dv2r
+# stripe_publishable_key: pk_test_ro9jV5SNwGb1yYlQfzG17LHK
+#
+# production:
+#   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
+#   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
 
-development:
-  <<: *defaults
-
-test:
-  <<: *defaults
-
-staging:
-  <<: *defaults
-  secret_key: '' # `rake secret` to generate one
+app_domain:
+mailgun_user_name:
+mailgun_password:
+mailgun_api_key:
 
 production:
-  <<: *defaults
-  secret_key: '' # `rake secret` to generate one
+  app_domain:
+  mailgun_user_name:
+  mailgun_password:
+  mailgun_api_key:
+
   CODE
 
   run 'ln shared/config/application.yml config/application.yml'
@@ -425,9 +435,9 @@ default: &default
 
   # adapter: mysql2
   # encoding: utf8
-  # database: <%= Settings.mysql.database %>
-  # username: <%= Settings.mysql.username %>
-  # password: <%= Settings.mysql.password %>
+  # database:
+  # username:
+  # password:
   # host: 127.0.0.1
   # port: 3306
 
@@ -457,18 +467,18 @@ production:
 
   file 'shared/config/secrets.yml', <<-CODE
 development:
-  secret_key_base: <%= Settings.secret_key %>
+  secret_key_base: #{%x(bundle exec rake secret)}
 
 test:
-  secret_key_base: <%= Settings.secret_key %>
+  secret_key_base: #{%x(bundle exec rake secret)}
 
 staging:
-  secret_key_base: <%= Settings.secret_key %>
+  secret_key_base: #{%x(bundle exec rake secret)}
 
 # Do not keep production secrets in the repository,
 # instead read values from the environment.
 production:
-  secret_key_base: <%= Settings.secret_key %>
+  secret_key_base: #{%x(bundle exec rake secret)}
   CODE
   run 'rm config/secrets.yml'
   run 'ln shared/config/secrets.yml config/secrets.yml'

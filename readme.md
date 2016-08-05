@@ -16,6 +16,9 @@ rails new example -m https://raw.githubusercontent.com/oracle-design/Q-Rails-App
 
 - 捨棄 `_plugins.coffee` 的做法，相關設定移回 `application.js.coffee`
 - 新增 EspressoMartini gem, 順便自動安裝 Espresso
+- 移除 SettingsLogic，改用 Figaro
+- 以後 database 的設定一律改回使用預設的 database.yml
+- 新增 gems
 
 **2016-05-12**
 

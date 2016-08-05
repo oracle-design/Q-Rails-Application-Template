@@ -15,4 +15,3 @@
 #= require espresso_martini
 #= require turbolinks
 #= require _flash-style
-#= require_tree ./classes
