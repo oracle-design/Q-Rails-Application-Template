@@ -70,6 +70,9 @@ gem_group :development, :test do
   gem 'capistrano-rails', '~> 1.1.1'
   gem 'capistrano-rbenv', github: 'capistrano/rbenv'
   gem 'slackistrano', require: false
+
+  # odd Tools set
+  gem 'espresso_martini', github: 'oracle-design/espresso_martini'
 end
 
 # mysql adapter
@@ -325,11 +328,8 @@ end
   # Javascript
   remove_file 'app/assets/javascripts/application.js'
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/assets/javascripts/application.js.coffee', 'app/assets/javascripts/application.js.coffee'
-  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/assets/javascripts/_plugins.js.coffee', 'app/assets/javascripts/_plugins.js.coffee'
-  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/assets/javascripts/_app-base.js.coffee', 'app/assets/javascripts/_app-base.js.coffee'
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/assets/javascripts/_flash-style.js.coffee', 'app/assets/javascripts/_flash-style.js.coffee'
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/assets/javascripts/vendor/_console_err.js', 'app/assets/javascripts/vendor/_console_err.js'
-  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/assets/javascripts/classes/.js_objects', 'app/assets/javascripts/classes/.js_objects'
 
   # Sass
   remove_file 'app/assets/stylesheets/application.css'
@@ -357,6 +357,9 @@ end
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/views/common/_header.html.erb', 'app/views/common/_header.html.erb'
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/views/common/_footer.html.erb', 'app/views/common/_footer.html.erb'
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/views/prototype/index.html.erb', 'app/views/prototype/index.html.erb'
+
+  # 安裝 EspressoMartini
+  generate 'espresso:install'
 
   # 其他設定
   #===============================================================================

@@ -12,6 +12,11 @@ rails new example -m https://raw.githubusercontent.com/oracle-design/Q-Rails-App
 
 ## 更新
 
+**2016-08-05**
+
+- 捨棄 `_plugins.coffee` 的做法，相關設定移回 `application.js.coffee`
+- 新增 EspressoMartini gem, 順便自動安裝 Espresso
+
 **2016-05-12**
 
 - 關閉單行長度的 style 檢查
