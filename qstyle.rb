@@ -372,9 +372,6 @@ end
   # 其他設定
   #===============================================================================
 
-  # SittingsLogic
-  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/models/settings.rb', 'app/models/settings.rb'
-
   # i18n
   get 'https://raw.github.com/svenfuchs/rails-i18n/master/rails/locale/zh-TW.yml', 'config/locales/zh-TW.yml'
   get 'https://raw.githubusercontent.com/tigrish/devise-i18n/master/rails/locales/zh-TW.yml', 'config/locales/devise_i18n.yml'
