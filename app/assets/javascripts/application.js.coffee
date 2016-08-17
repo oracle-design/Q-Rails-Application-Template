@@ -12,6 +12,9 @@
 #= require growlyflash
 #= require sweetalert
 #= require sweet-alert-confirm
-#= require espresso_martini
+#
+# require any libs above here
+#
+#= require _espresso_martini
 #= require turbolinks
 #= require _flash-style

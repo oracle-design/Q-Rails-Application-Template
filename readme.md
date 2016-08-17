@@ -12,6 +12,10 @@ rails new example -m https://raw.githubusercontent.com/oracle-design/Q-Rails-App
 
 ## 更新
 
+**2016-08-17**
+
+- default 使用 slim
+
 **2016-08-05**
 
 - 捨棄 `_plugins.coffee` 的做法，相關設定移回 `application.js.coffee`

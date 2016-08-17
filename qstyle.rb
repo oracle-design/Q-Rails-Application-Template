@@ -107,7 +107,8 @@ gem 'sassc-rails'
 gem 'bourbon'
 gem 'neat'
 gem 'bootstrap-sass' if yes?('是否安裝 bootstrap-sass gem？（yes/no）')
-gem "autoprefixer-rails"
+gem 'autoprefixer-rails'
+gem 'slim-rails'
 
 gem 'bower-rails'
 gem 'modernizr-rails'
@@ -133,7 +134,8 @@ gem 'figaro'
 
 # for View components and cache
 gem 'cells'
-gem 'cells-erb'
+gem 'cells-slim'
+gem 'cells-rails'
 
 # 檔案上傳與影像處理
 gem 'carrierwave'
