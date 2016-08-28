@@ -12,6 +12,13 @@ rails new example -m https://raw.githubusercontent.com/oracle-design/Q-Rails-App
 
 ## 更新
 
+**2016-08-28**
+
+- EspressoMartini Production 也必須使用(moved out of dev, test group)
+- [sass] `+breakpoint` 改用 `+media` 取代
+- 增加 `favicon_maker` gem，新增 task 產生 favicons
+- 新增 meta tags 設定至 `application_controller.rb`
+
 **2016-08-17**
 
 - default 使用 slim

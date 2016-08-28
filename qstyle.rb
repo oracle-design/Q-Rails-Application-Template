@@ -75,9 +75,6 @@ gem_group :development, :test do
 
   # 監測頁面效能
   gem 'rack-mini-profiler', require: false
-
-  # odd Tools set
-  gem 'espresso_martini', github: 'oracle-design/espresso_martini'
 end
 
 # mysql adapter
@@ -98,6 +95,9 @@ if yes?("是否進行開發 API？ (yes/no)")
   gem 'rack-cors', require: 'rack/cors'
 
 end
+
+# odd Tools set
+gem 'espresso_martini', github: 'oracle-design/espresso_martini'
 
 # 前端相關
 gem 'sprockets-rails'
@@ -143,6 +143,7 @@ gem 'mini_magick'
 
 # SEO
 gem 'meta-tags'
+gem 'favicon_maker'
 
 # 權限管理
 gem 'pundit'
@@ -363,10 +364,10 @@ end
 
   # View
   remove_file 'app/views/layouts/application.html.erb'
-  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/views/layouts/application.html.erb', 'app/views/layouts/application.html.erb'
-  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/views/common/_header.html.erb', 'app/views/common/_header.html.erb'
-  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/views/common/_footer.html.erb', 'app/views/common/_footer.html.erb'
-  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/views/prototype/index.html.erb', 'app/views/prototype/index.html.erb'
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/views/layouts/application.html.slim', 'app/views/layouts/application.html.slim'
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/views/common/_header.html.slim', 'app/views/common/_header.html.slim'
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/views/common/_footer.html.slim', 'app/views/common/_footer.html.slim'
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/app/views/prototype/index.html.slim', 'app/views/prototype/index.html.slim'
 
   # 安裝 EspressoMartini
   generate 'espresso:install'
@@ -383,12 +384,85 @@ end
 
   # setting up Bullet
   insert_into_file 'config/environments/development.rb', after: '# config.action_view.raise_on_missing_translations = true' do
-    "
-      config.after_initialize do
-        Bullet.enable = true
-        Bullet.console = true
-      end
-    "
+    %(
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.console = true
+  end
+    )
+  end
+
+  # meta tags settings
+  insert_into_file 'app/controllers/application_controller.rb', after: 'protect_from_forgery with: :exception' do
+    %(
+
+  before_action :set_basic_meta_tags
+
+  private
+
+  def set_basic_meta_tags
+    @company_name_for_title = 'odd'
+    @site_name = "\#{@company_name_for_title}"
+    set_meta_tags site: @site_name,
+                  # reverse: true,
+                  separator: '::',
+                  keywords: 'odd',
+                  icon: [
+                    { href: '/favicon.png',
+                      type: 'image/png' },
+                    { href: '/apple-touch-icon-76x76-precomposed.png',
+                      rel: 'apple-touch-icon-precomposed',
+                      sizes: '76x76',
+                      type: 'image/png' },
+                    { href: '/apple-touch-icon-72x72-precomposed.png',
+                      rel: 'apple-touch-icon-precomposed',
+                      sizes: '72x72',
+                      type: 'image/png' },
+                    { href: '/apple-touch-icon-60x60-precomposed.png',
+                      rel: 'apple-touch-icon-precomposed',
+                      sizes: '60x60',
+                      type: 'image/png' },
+                    { href: '/apple-touch-icon-57x57-precomposed.png',
+                      rel: 'apple-touch-icon-precomposed',
+                      sizes: '57x57',
+                      type: 'image/png' },
+                    { href: '/apple-touch-icon-152x152-precomposed.png',
+                      rel: 'apple-touch-icon-precomposed',
+                      sizes: '152x152',
+                      type: 'image/png' },
+                    { href: '/apple-touch-icon-144x144-precomposed.png',
+                      rel: 'apple-touch-icon-precomposed',
+                      sizes: '144x144',
+                      type: 'image/png' },
+                    { href: '/apple-touch-icon-120x120-precomposed.png',
+                      rel: 'apple-touch-icon-precomposed',
+                      sizes: '120x120',
+                      type: 'image/png' },
+                    { href: '/apple-touch-icon-114x114-precomposed.png',
+                      rel: 'apple-touch-icon-precomposed',
+                      sizes: '114x114',
+                      type: 'image/png' }
+                  ],
+                  og: {
+                    site_name: @site_name,
+                    type: 'website',
+                    locale: 'zh_TW'
+                  }
+  end
+
+  def load_meta_tags_format(args = {})
+    title = args.fetch(:title, '')
+    description = args.fetch(:description, 'we are professional in Rails')
+    og_image = args.fetch(:og_image, view_context.asset_url('og_image.jpg'))
+
+    set_meta_tags title: title,
+                  description: description,
+                  og: {
+                    description: description,
+                    image: og_image
+                  }
+  end
+    )
   end
 
   # capistrano
@@ -397,6 +471,49 @@ end
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/config/deploy.rb', 'config/deploy.rb'
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/config/deploy/production.rb', 'config/deploy/production.rb'
   get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/config/deploy/staging.rb', 'config/deploy/staging.rb'
+
+  file 'lib/tasks/favicon.rake', <<-CODE
+require 'favicon_maker'
+
+namespace :favicon do
+  task :generate => :environment do
+    FaviconMaker.generate do
+      setup do
+        template_dir  Rails.root.join('app', 'assets', 'images')
+        output_dir    Rails.public_path
+      end
+
+      from "favicon_base.png" do
+        icon "apple-touch-icon-76x76-precomposed.png"
+        icon "apple-touch-icon-72x72-precomposed.png"
+        icon "apple-touch-icon-60x60-precomposed.png"
+        icon "apple-touch-icon-57x57-precomposed.png"
+        icon "apple-touch-icon-precomposed.png", size: "57x57"
+        icon "apple-touch-icon.png", size: "57x57"
+        icon "favicon-32x32.png"
+        icon "favicon-16x16.png"
+        icon "favicon.png", size: "16x16"
+        icon "favicon.ico", size: "64x64,32x32,24x24,16x16"
+      end
+
+      from "favicon_base_hires.png" do
+        icon "apple-touch-icon-152x152-precomposed.png"
+        icon "apple-touch-icon-144x144-precomposed.png"
+        icon "apple-touch-icon-120x120-precomposed.png"
+        icon "apple-touch-icon-114x114-precomposed.png"
+        icon "favicon-196x196.png"
+        icon "favicon-160x160.png"
+        icon "favicon-96x96.png"
+        icon "mstile-144x144", format: "png"
+      end
+
+      each_icon do |filepath|
+        puts "Generated favicon at: \#{filepath}"
+      end
+    end
+  end
+end
+  CODE
 
   file 'shared/config/application.yml', <<-CODE
 # Add configuration values here, as shown below.

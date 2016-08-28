@@ -16,34 +16,34 @@
 
 .hidden-mobile
   display: none
-  +breakpoint($b-mobile)
+  +media($b-mobile)
     display: block
 
 .only-mobile
   display: block
-  +breakpoint($b-mobile)
+  +media($b-mobile)
     display: none
 
 .only-desktop-up
   display: none
-  +breakpoint($b-pad)
+  +media($b-pad)
     display: block
 
 .only-desktop
   display: none
-  +breakpoint($b-pad)
+  +media($b-pad)
     display: block
-  +breakpoint($b-desktop)
+  +media($b-desktop)
     display: none
 
 .only-large
   display: none
-  +breakpoint($b-desktop)
+  +media($b-desktop)
     display: block
 
 .only-pad
   display: none
-  +breakpoint($b-mobile)
+  +media($b-mobile)
     display: block
-  +breakpoint($b-pad)
+  +media($b-pad)
     display: none

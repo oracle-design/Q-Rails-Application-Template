@@ -1,0 +1,39 @@
+doctype html
+/![if lt IE 7] <html class="no-js lt-ie9 lt-ie8 lt-ie7"
+/![if IE 7] <html class="no-js lt-ie9 lt-ie8"
+/![if IE 8] <html class="no-js lt-ie9"
+/! [if gt IE 8]><!
+html.no-js
+  /! <![endif]
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    meta charset="utf-8" /
+    meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /
+    
+    / iOS safari relative settings
+    meta content="width=device-width" name="viewport" /
+    / meta content="yes" name="apple-mobile-web-app-capable" /
+    / meta content="black" name="apple-mobile-web-app-status-bar-style" /
+    / meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" /
+    
+    = display_meta_tags
+    
+    /! Place favicon.ico and apple-touch-icon.png in the root directory
+    = growlyflash_static_notices
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+    = javascript_include_tag 'modernizr'
+
+  body class="#{controller.controller_name}-#{controller.action_name}" 
+    /![if lt IE 7]
+      | <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+      
+    = render :partial => 'common/header'
+    
+    = yield
+    
+    = render :partial => 'common/footer'
+    
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true, 'data-turbolinks-eval' => false
+    
+    = yield :handwrite_js
