@@ -6,6 +6,8 @@ MAINTAINER Q <q@oddesign.expert>
 RUN apt-get update && apt-get install -qq -y --no-install-recommends build-essential sudo curl git imagemagick \
 # for postgres
     && apt-get install -y libpq-dev \
+# for sqlite3
+    && apt-get install -y libsqlite3-dev \
 # for nokogiri
     && apt-get install -y libxml2-dev libxslt1-dev \
 # for capybara-webkit

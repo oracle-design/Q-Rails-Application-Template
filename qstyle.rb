@@ -101,7 +101,7 @@ gem 'sass-rails'
 gem 'font-awesome-sass'
 gem 'sassc-rails'
 gem 'bourbon'
-gem 'neat'
+gem 'neat', '~>1.8.0'
 gem 'bootstrap-sass' if yes?('是否安裝 bootstrap-sass gem？（yes/no）')
 gem 'autoprefixer-rails'
 gem 'slim-rails'
@@ -551,20 +551,20 @@ default: &default
   host: db
 
 development:
-  <<: *default
-  database: myapp_dev
-  username: username
-  password: mypassword
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+  database: db/development.sqlite3
 
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: myapp_test
-  username: username
-  password: mypassword
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+  database: db/development.sqlite3
 
 staging:
   <<: *default
