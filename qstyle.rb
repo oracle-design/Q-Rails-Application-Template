@@ -70,8 +70,8 @@ gem_group :development, :test do
   gem "capistrano-db-tasks", require: false
 
   # 影像優化處理
-  gem 'image_optim'
-  gem 'image_optim_pack'
+  # gem 'image_optim'
+  # gem 'image_optim_pack'
 
   # 監測頁面效能
   gem 'rack-mini-profiler', require: false
@@ -85,11 +85,6 @@ gem 'devise'
 
 # API 開發工具組
 if yes?("是否進行開發 API？ (yes/no)")
-
-  # API 開發工具
-  gem 'grape'
-  gem 'grape-entity'
-  gem 'grape-swagger-rails'
 
   # 跨站請求
   gem 'rack-cors', require: 'rack/cors'
@@ -112,11 +107,6 @@ gem 'slim-rails'
 
 gem 'bower-rails'
 gem 'modernizr-rails'
-
-if yes?('是否使用 React.js？（yes/no）')
-  gem 'react-rails', '~> 1.0'
-  gem 'sprockets-coffee-react'
-end
 
 # Debug 工具
 gem 'awesome_rails_console'
