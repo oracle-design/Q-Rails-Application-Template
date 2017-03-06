@@ -78,8 +78,8 @@ gem_group :development, :test do
   gem 'rack-mini-profiler', require: false
 end
 
-# mysql adapter
-gem 'mysql2'
+# pg adapter
+gem 'pg'
 
 # 使用者系統
 gem 'devise'
