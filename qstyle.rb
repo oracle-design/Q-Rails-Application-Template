@@ -66,6 +66,7 @@ gem_group :development, :test do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1.1'
   gem 'capistrano-rbenv', github: 'capistrano/rbenv'
+  gem 'capistrano-sidekiq'
   gem 'slackistrano'
   gem "capistrano-db-tasks", require: false
 
@@ -135,6 +136,9 @@ gem 'mini_magick'
 gem 'meta-tags'
 gem 'favicon_maker'
 
+# job adapter
+gem 'sidekiq'
+
 # 權限管理
 gem 'pundit'
 
@@ -173,6 +177,9 @@ after_bundle do
         g.assets false
         g.helper false
       end
+
+      # ActiveJob
+      config.active_job.queue_adapter = :sidekiq
     }
   end
 
@@ -263,6 +270,9 @@ pickle-email-*.html
 /config/application.yml
 /config/database.yml
 /shared/
+/key
+/certificates
+/docker_data/
 
 ## Environment normalisation:
 /.bundle
@@ -535,21 +545,16 @@ production:
 
   file 'shared/config/database.yml', <<-CODE
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
+  encoding: unicode
   pool: 5
-  timeout: 5000
-
-  # adapter: mysql2
-  # encoding: utf8
-  # database:
-  # username:
-  # password:
-  # host: 127.0.0.1
-  # port: 3306
+  host: db
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: myapp_dev
+  username: username
+  password: mypassword
 
 
 # Warning: The database defined as "test" will be erased and
@@ -557,15 +562,21 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: myapp_test
+  username: username
+  password: mypassword
 
 staging:
   <<: *default
-  database: db/staging.sqlite3
+  database: myapp_staging
+  username: username
+  password: mypassword
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: myapp
+  username: username
+  password: mypassword
   CODE
 
   run 'rm config/database.yml'
