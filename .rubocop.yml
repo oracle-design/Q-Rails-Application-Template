@@ -1,12 +1,14 @@
 AllCops:
   TargetRubyVersion: 2.3
   Exclude:
-    - "**/*.slim"
-    - "vendor/**/*"
-    - "db/schema.rb"
+    - '**/*.slim'
+    - 'vendor/**/*'
+    - 'db/**/*'
+    - 'log/**/*'
+    - 'tmp/**/*'
 
 Lint/EndAlignment:
-  AlignWith: keyword
+  EnforcedStyleAlignWith: keyword
 
 Metrics/LineLength:
   Enabled: false
@@ -27,7 +29,7 @@ Style/AsciiComments:
   Enabled: false
 
 Style/CaseIndentation:
-  IndentWhenRelativeTo: end
+  EnforcedStyle: end
 
 Style/Documentation:
   Enabled: false
@@ -45,4 +47,10 @@ Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
   Enabled: false
