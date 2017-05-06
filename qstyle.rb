@@ -82,7 +82,7 @@ end
 gem 'pg'
 
 # 使用者系統
-gem 'devise'
+gem 'devise', github: 'plataformatec/devise'
 
 # API 開發工具組
 if yes?("是否進行開發 API？ (yes/no)")
@@ -108,6 +108,8 @@ gem 'slim-rails'
 
 gem 'bower-rails'
 gem 'modernizr-rails'
+
+gem 'jquery-rails'
 
 # Debug 工具
 gem 'awesome_rails_console'
@@ -189,6 +191,7 @@ after_bundle do
   run 'bundle exec rake bower:install'
 
   # 安裝 Rspec
+  run 'spring stop'
   generate 'rspec:install'
 
   insert_into_file 'spec/rails_helper.rb', %(
