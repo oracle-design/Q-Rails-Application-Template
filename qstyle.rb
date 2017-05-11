@@ -619,3 +619,10 @@ after_bundle do
   git add: '.'
   git commit: "-a -m 'Initial commit'"
 end
+
+# docker
+get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/.dockerignore', '.dockerignore'
+get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/docker-compose.yml', 'docker-compose.yml'
+get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/sidekiq.yml', 'sidekiq.yml'
+
+run 'docker-compose up'
