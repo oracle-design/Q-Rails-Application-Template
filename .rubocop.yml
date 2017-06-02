@@ -19,32 +19,32 @@ Metrics/AbcSize:
 Metrics/MethodLength:
   Enabled: false
 
-Style/AlignArray:
+Layout/AlignArray:
   Enabled: false
 
-Style/AlignParameters:
-  EnforcedStyle: with_fixed_indentation
+Layout/AlignParameters:
+  EnforcedStyle: with_first_parameter
 
 Style/AsciiComments:
   Enabled: false
 
-Style/CaseIndentation:
-  EnforcedStyle: end
+Layout/CaseIndentation:
+  EnforcedStyle: case
 
 Style/Documentation:
   Enabled: false
 
-Style/DotPosition:
-  EnforcedStyle: trailing
+Layout/DotPosition:
+  EnforcedStyle: leading
 
 Style/Lambda:
   Enabled: false
 
-Style/MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
 
-Style/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: aligned
 
 Style/FrozenStringLiteralComment:
   Enabled: false
