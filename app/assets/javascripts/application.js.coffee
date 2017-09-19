@@ -10,8 +10,8 @@
 #= require rails-ujs
 # require bootstrap
 #= require growlyflash
-#= require sweetalert
-#= require sweet-alert-confirm
+#= require sweetalert2
+#= require sweet-alert2-rails
 #
 # require any libs above here
 #

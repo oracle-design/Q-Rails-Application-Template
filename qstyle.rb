@@ -116,8 +116,8 @@ gem 'awesome_rails_console'
 
 # notifications
 gem 'growlyflash'
-gem 'rails-assets-sweetalert', source: 'https://rails-assets.org'
-gem 'sweet-alert-confirm'
+gem 'rails-assets-sweetalert2', source: 'https://rails-assets.org'
+gem 'sweet-alert2-rails'
 
 # App settings function
 gem 'rails-settings-cached'
@@ -168,6 +168,7 @@ after_bundle do
       config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
       config.i18n.default_locale = "zh-TW"
       config.i18n.available_locales = [:"zh-TW", :en]
+      config.i18n.fallbacks = [:en]
 
       # Set generator
       config.generators do |g|
@@ -551,7 +552,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  host: db
+  host: localhost
 
 development:
   adapter: sqlite3
@@ -612,17 +613,17 @@ production:
   end
 end
 
+# docker
+after_bundle do
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/.dockerignore', '.dockerignore'
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/docker-compose.yml', 'docker-compose.yml'
+  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/sidekiq.yml', 'sidekiq.yml'
+end
+
 # git 初始化
 #===============================================================================
 after_bundle do
   git :init
   git add: '.'
   git commit: "-a -m 'Initial commit'"
-end
-
-# docker
-after_bundle do
-  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/.dockerignore', '.dockerignore'
-  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/docker-compose.yml', 'docker-compose.yml'
-  get 'https://raw.githubusercontent.com/oracle-design/Q-Rails-Application-Template/master/sidekiq.yml', 'sidekiq.yml'
 end
